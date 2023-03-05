@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Document</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+    * {
+        box-sizing: border-box;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        font-family: 'Fredoka One', cursive;
+        margin: 0px;
+    }
+    
+    .box {
+        background-color: #333366;
+        height: 100%;
+        width: 100%;
+        /* padding: 2px; */
+    }
+    
+    nav {
+        display: flex;
+        width: 100%;
+        /* background-color: rgb(0, 53, 100); */
+        justify-content: space-between;
+        padding: 5px;
+        box-sizing: border-box;
+        align-items: center;
+        /* border-bottom: 2px solid #FF5F5F; */
+        /* margin-bottom: 15px; */
+    }
+    
+    .nav-start img {
+        width: 100px;
+        height: 100%;
+        /* object-fit: cover; */
+    }
+    
+    .nav-end ul {
+        display: flex;
+        margin: 0px;
+        gap: 5px;
+        box-sizing: border-box;
+    }
+    
+    .nav-end ul li {
+        list-style: none;
+    }
+    
+    .nav-end ul li a {
+        color: #FF5F5F;
+        font-size: 17px;
+        text-decoration: none;
+        display: block;
+        position: relative;
+        padding: 10px 15px;
+        box-sizing: border-box;
+    }
+    
+    .nav-end ul li a::before {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 0%;
+        height: 2px;
+        background-color: #FF5F5F;
+        transition: all 0.5s ease;
+    }
+    
+    .nav-end ul li a::after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        width: 0%;
+        height: 2px;
+        background-color: #FF5F5F;
+        transition: all 0.5s ease;
+    }
+    
+    .nav-end ul li a:hover::before {
+        width: 100%;
+    }
+    
+    .nav-end ul li a:hover::after {
+        width: 100%;
+    }
+    
+    .contentcontainer {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        height: auto;
+    }
+    
+    .boxcontext {
+        display: flex;
+        max-width: 1500px;
+        border-radius: 10px;
+        height: auto;
+        margin: auto;
+        padding: 5px;
+        justify-content: space-between;
+        gap: 5px;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    
+    .contentstart {
+        width: 100%;
+        height: 400px;
+        /* border: 1px solid #3a9399; */
+        overflow: hidden;
+        position: relative;
+        border-radius: 10px;
+    }
+    
+    .imglast {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s ease;
+        border-radius: 10px;
+    }
+    
+    .imglast:hover {
+        transform: scale(1.1);
+    }
+    
+    .titelast {
+        position: absolute;
+        left: 0px;
+        background-color: #ff5f5f;
+        z-index: 1;
+        padding: 10px;
+        color: #F9E75E;
+        border-bottom-right-radius: 10px;
+    }
+    
+    .lastlogo {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        z-index: 1;
+    }
+    
+    .lastlogo>img {
+        display: block;
+        margin: auto;
+        width: 50%;
+        object-fit: cover;
+    }
+    
+    .contentend {
+        width: 100%;
+        height: 400px;
+        /* border: 1px solid #3a9399; */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    
+    .erabox {
+        width: 100%;
+        height: 300px;
+        /* padding: 10px; */
+        border: 2px solid #FF5F5F;
+        background-color: #242453;
+        box-sizing: border-box;
+        border-radius: 10px;
+        display: flex;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        user-select: none;
+        transform: translateY(50px);
+    }
+    
+    .showerabox {
+        transform: translateY(0);
+    }
+    
+    .erabox:hover {
+        box-shadow: 0px 0px 5px 2px #F9E75E;
+    }
+    
+    .imgbox {
+        width: 150px;
+        height: 100%;
+        padding: 5px;
+        border-right: 2px solid #FF5F5F;
+        box-sizing: border-box;
+        /* background-color: #F9E75E; */
+    }
+    
+    .imgbox>img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .eraname {
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+        color: #F9E75E;
+        font-size: 15px;
+    }
+    
+    @media only screen and (max-width: 850px) {
+        .boxcontext {
+            flex-direction: column;
+        }
+        .eraname {
+            font-size: 15px;
+        }
+        .nav-end ul li a {
+            font-size: 15px;
+        }
+    }
+    
+    @media only screen and (max-width: 380px) {
+        .nav-end ul li a {
+            font-size: 10px;
+        }
+        .nav-start img {
+            width: 55px;
+        }
+    }
+    
+    .boxlogo {
+        max-width: 1500px;
+        height: auto;
+        margin: auto;
+    }
+    
+    .logotitel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        color: #FF5F5F;
+    }
+    
+    .logotitel>span {
+        font-size: 40px;
+        color: #F9E75E;
+    }
+    
+    .linex {
+        width: 50%;
+        height: 2px;
+        background-color: #F0F0F0;
+    }
+    
+    .logocontainer {
+        max-width: 1500px;
+        height: 100px;
+        padding: 5px;
+        overflow: hidden;
+    }
+    
+    .boxlogoimg {
+        display: flex;
+        gap: 10px;
+        box-sizing: border-box;
+        height: 100%;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+    }
+    
+    .boxlogoimg::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .boximgtitle {
+        min-width: 200px;
+        height: 100%;
+        /* background-color: aqua; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+    
+    .boxtimg {
+        width: 80px;
+        height: 90px;
+        background-color: #333366;
+        border-radius: 50%;
+        padding: 5px;
+        box-sizing: border-box;
+        border: 3px solid #F9E75E;
+        overflow: hidden;
+        /* box-shadow: #F9E75E 0px 0px 5px 1px; */
+    }
+    
+    .boxtimg>img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        box-sizing: border-box;
+    }
+    
+    .boximgtitle>span {
+        font-size: 12px;
+        text-align: center;
+        color: #F9E75E;
+    }
+    
+    .popup {
+        position: fixed;
+        background-color: #33664856;
+        width: 100%;
+        height: 100vh;
+        z-index: 2;
+    }
+</style>
+
+<body>
+    <!-- <div class="popup">
+
+    </div> -->
+    <div class="box">
+        <nav>
+            <div class="nav-start">
+                <img src="img/logo.png" alt="">
+            </div>
+            <div class="nav-end">
+                <ul>
+                    <li><a href="">Document</a></li>
+                    <li><a href="">Signup</a></li>
+                    <li><a href="">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="contentcontainer">
+            <div class="boxcontext">
+                <div class="contentstart">
+                    <span class="titelast">Last Kamen Rider : Kamen Rider Geats</span>
+                    <span class="lastlogo"><img src="img/Kamen_Rider_Geats_Logo.png" alt=""></span>
+                    <img class="imglast" src="img/lastrider.jpg" alt="">
+                </div>
+                <div class="contentend">
+                    <div class="erabox">
+                        <div class="imgbox">
+                            <img src="img/showa.png" alt="">
+                        </div>
+                        <div class="eraname">
+                            <span>Showa-era Riders are Kamen Riders from the Shōwa Period of Japan, which took place from 1926 to 1989.</span>
+                        </div>
+                    </div>
+                    <div class="erabox">
+                        <div class="imgbox">
+                            <img src="img/d9hmn27-fb4745bc-6d72-443c-a531-65a735e88698.png" alt="">
+                        </div>
+                        <div class="eraname">
+                            <span>Heisei-era from January 8, 1989, the first day after the death of the previous Emperor, Hirohito, father of Akihito, to his abdication on April 30th, 2019, announced years earlier, in August 2016</span>
+                        </div>
+                    </div>
+                    <div class="erabox">
+                        <div class="imgbox">
+                            <img src="img/ddj41qd-ef13e63e-5d7a-4028-a12c-479efb22a279.png" alt="">
+                        </div>
+                        <div class="eraname">
+                            <span> Reiwa-era the current period in Japanese history, coming after the Heisei period on May 1, 2019</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="boxlogo">
+                <div class="logotitel">
+                    <div class="linex"></div>
+                    <span>Showa</span>
+                    <div class="linex"></div>
+                </div>
+                <div class="logocontainer">
+                    <div class="boxlogoimg">
+                        <div class="boximgtitle">
+                            <div class="boxtimg">
+                                <img src="img/logorider/showa/01.png" alt="">
+                            </div>
+                            <span>Kamen Rider</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="logotitel">
+                    <div class="linex"></div>
+                    <span>Showa</span>
+                    <div class="linex"></div>
+                </div>
+                <div class="logotitel">
+                    <div class="linex"></div>
+                    <span>Showa</span>
+                    <div class="linex"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="" style="height: 100vh;"></div>
+</body>
+<script src="js/observer.js"></script>
+<script>
+    var boxlogoimg = document.querySelector('.boxlogoimg')
+    var slidex = null;
+
+    for (let index = 2; index <= 9; index++) {
+        boxlogoimg.innerHTML += '<div class="boximgtitle">' +
+            '<div class="boxtimg">' +
+            '<img src="img/logorider/showa/0' + (index) + '.png" alt="">' +
+            '</div>' +
+            '<span>Kamen Rider</span>' +
+            '</div>'
+    }
+
+    setInterval(() => {
+        var maxScrollLeft = boxlogoimg.scrollWidth - boxlogoimg.clientWidth
+        if (Math.floor(boxlogoimg.scrollLeft) < maxScrollLeft) {
+            boxlogoimg.scrollLeft += 220
+        } else {
+            boxlogoimg.scrollLeft = 0
+        }
+        console.log(boxlogoimg.scrollLeft);
+        console.log(maxScrollLeft);
+    }, 1500)
+</script>
+
+</html>

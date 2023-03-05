@@ -1,13 +1,12 @@
 const targetElement = document.querySelectorAll('.target-element');
 const startx = document.querySelectorAll('.startx');
+const erabox = document.querySelectorAll('.erabox');
 
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            console.log('Target element is visible');
             entry.target.classList.add('visible');
         } else {
-            console.log('Target element is not visible');
             entry.target.classList.remove('visible');
         }
     });
@@ -18,11 +17,21 @@ const observer = new IntersectionObserver(entries => {
 const observer1 = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            console.log('Target element is visible');
             entry.target.classList.add('visible');
         } else {
-            console.log('Target element is not visible');
             entry.target.classList.remove('visible');
+        }
+    });
+}, {
+    threshold: 0
+});
+
+const oberabox = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('showerabox');
+        } else {
+            entry.target.classList.remove('showerabox');
         }
     });
 }, {
@@ -30,6 +39,10 @@ const observer1 = new IntersectionObserver(entries => {
 });
 targetElement.forEach(e => {
     observer.observe(e);
+})
+
+erabox.forEach(era => {
+    oberabox.observe(era)
 })
 
 startx.forEach(e => {

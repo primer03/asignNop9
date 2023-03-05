@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Slideshow</title>
+    <style>
+        /* Global styles */
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+        }
+        /* Product card styles */
+        
+        .product-card {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .product-card .product-info {
+            padding: 20px;
+        }
+        
+        .product-card h2 {
+            margin-top: 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .product-card p {
+            margin-bottom: 0;
+            font-size: 1.2rem;
+        }
+        
+        .product-card .price {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0077be;
+        }
+        /* Slideshow styles */
+        
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            overflow: hidden;
+        }
+        
+        .slideshow .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .slideshow .slide {
+            position: relative;
+            width: 100%;
+        }
+        
+        .slideshow .slide img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .slideshow .controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1;
+        }
+        
+        .slideshow .controls button {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .slideshow .controls button:hover {
+            transform: scale(1.2);
+        }
+        
+        .slideshow .controls .prev {
+            margin-left: 10px;
+        }
+        
+        .slideshow .controls .next {
+            margin-right: 10px;
+        }
+        /* Media queries */
+        
+        @media (min-width: 768px) {
+            .product-card {
+                float: left;
+                margin-right: 40px;
+            }
+            .slideshow {
+                float: right;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="product-card">
+        <img src="https://picsum.photos/400/400?random=1" alt="Product 1">
+        <div class="product-info">
+            <h2>Product 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div class="price">$49.99</div>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="https://picsum.photos/400/400?random=2" alt="Product 2">
+        <div class="product-info">
+            <h2>Product 2</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <div class="price">$99.99</div>
+        </div>
+    </div>
+    <!-- Slideshow -->
+    <div class="slideshow">
+        <div class="slides">
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=1" alt="Slide 1">
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=2" alt="Slide 2">
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=3" alt="Slide 3">
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=1" alt="Slide 1">
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=2" alt="Slide 2">
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=3" alt="Slide 3">
+            </div>
+        </div>
+        <div class="controls">
+            <button class="prev"></button>
+            <button class="next">></button>
+        </div>
+    </div>
+    <script>
+        const slides = document.querySelector(".slides");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next");
+        let currentIndex = 0;
+
+        const slide = () => {
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+        };
+
+        const prevSlide = () => {
+            currentIndex--;
+            if (currentIndex < 0) {
+                currentIndex = 2;
+            }
+            slide();
+        };
+
+        const nextSlide = () => {
+            currentIndex++;
+            if (currentIndex > 2) {
+                currentIndex = 0;
+            }
+            slide();
+        };
+
+        prevBtn.addEventListener("click", prevSlide);
+        nextBtn.addEventListener("click", nextSlide);
+    </script>
+</body>
+
+</html>

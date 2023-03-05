@@ -20,7 +20,7 @@ body {
 
 .boxstart {
     box-sizing: border-box;
-    width: 500px;
+    width: 800px;
     height: auto;
     overflow: hidden;
     padding: 10px;
@@ -126,7 +126,7 @@ body {
 }
 
 .naxlrft>img {
-    width: 70px;
+    width: 90px;
     height: 100%;
     object-fit: cover;
 }
