@@ -29,7 +29,7 @@
         <div class="contentcontainer">
             <div class="boxcontext">
                 <div class="contentstart">
-                    <span class="titelast">Last Kamen Rider : Kamen Rider Geats</span>
+                    <span class="titelast">The Last Kamen Rider: Kamen Rider Gates</span>
                     <span class="lastlogo"><img src="img/Kamen_Rider_Geats_Logo.png" alt=""></span>
                     <img class="imglast" src="img/lastrider.jpg" alt="">
                 </div>
@@ -60,14 +60,46 @@
                     </div>
                 </div>
             </div>
-            <div class="boxlogo">
+            <div class="boxheadf">
+                <p class="bocfera" style="text-align: center;">Kamen rider the first story of each era</p>
+            </div>
+            <div class="hboxfirst">
+                <div class="boxfirstrider">
+                    <div class="cardrider">
+                        <div class="imgkamenf">
+                            <img data-name="v1" class="imgfirstX" src="img\logorider\firstkamen\01.png" alt="">
+                        </div>
+                        <div data-name="v1" class="card-title">
+                            <span>Kamen rider v1</span>
+                        </div>
+                    </div>
+                    <div class="cardrider">
+                        <div class="imgkamenf">
+                            <img data-name="kuga" class="imgfirstX" src="img\logorider\firstkamen\02.png" alt="">
+                        </div>
+                        <div data-name="kuga" class="card-title">
+                            <span>Kamen rider kuuga</span>
+                        </div>
+                    </div>
+                    <div class="cardrider">
+                        <div class="imgkamenf">
+                            <img data-name="zeroone" class="imgfirstX" src="img\logorider\firstkamen\03.png" alt="">
+                        </div>
+                        <div data-name="zeroone" class="card-title">
+                            <span>Kamen rider zero one</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="boxlogo">
                 <div class="logotitel">
                     <div class="linex"></div>
-                    <span>Showa</span>
+                    <span class="nameeraX">Showa</span>
                     <div class="linex"></div>
                 </div>
                 <div class="logocontainer">
-                    <div class="boxlogoimg">
+                    <div class="boxlogoimg showabox">
                         <div class="boximgtitle">
                             <div class="boxtimg">
                                 <img src="img/logorider/showa/01.png" alt="">
@@ -78,15 +110,20 @@
                 </div>
                 <div class="logotitel">
                     <div class="linex"></div>
-                    <span>Showa</span>
+                    <span class="nameeraX">Heisei</span>
                     <div class="linex"></div>
+                </div>
+                <div class="logocontainer">
+                    <div class="boxlogoimg heisebox">
+
+                    </div>
                 </div>
                 <div class="logotitel">
                     <div class="linex"></div>
-                    <span>Showa</span>
+                    <span class="nameeraX">Reiwa</span>
                     <div class="linex"></div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="" style="height: 100vh;"></div>
@@ -94,27 +131,62 @@
 <script src="js/observer.js"></script>
 <script>
     var boxlogoimg = document.querySelector('.boxlogoimg')
+    var showabox = document.querySelector('.showabox')
+    var heisebox = document.querySelector('.heisebox')
+    var imgfirstX = document.querySelectorAll('.imgfirstX')
+    var cardtitle = document.querySelectorAll('.card-title')
     var slidex = null;
 
-    for (let index = 2; index <= 9; index++) {
-        boxlogoimg.innerHTML += '<div class="boximgtitle">' +
-            '<div class="boxtimg">' +
-            '<img src="img/logorider/showa/0' + (index) + '.png" alt="">' +
-            '</div>' +
-            '<span>Kamen Rider</span>' +
-            '</div>'
-    }
+    // for (let index = 2; index <= 9; index++) {
+    //     showabox.innerHTML += '<div class="boximgtitle">' +
+    //         '<div class="boxtimg">' +
+    //         '<img src="img/logorider/showa/0' + (index) + '.png" alt="">' +
+    //         '</div>' +
+    //         '<span>Kamen Rider</span>' +
+    //         '</div>'
+    // }
+    // for (let i = 1; i <= 20; i++) {
+    //     heisebox.innerHTML += '<div class="boximgtitle">' +
+    //         '<div class="boxtimg">' +
+    //         '<img src="img/logorider/Heisei/0' + (i) + '.webp" alt="">' +
+    //         '</div>' +
+    //         '<span>Kamen Rider</span>' +
+    //         '</div>'
+    // }
 
-    setInterval(() => {
-        var maxScrollLeft = boxlogoimg.scrollWidth - boxlogoimg.clientWidth
-        if (Math.floor(boxlogoimg.scrollLeft) < maxScrollLeft) {
-            boxlogoimg.scrollLeft += 220
-        } else {
-            boxlogoimg.scrollLeft = 0
-        }
-        console.log(boxlogoimg.scrollLeft);
-        console.log(maxScrollLeft);
-    }, 1500)
+    // setInterval(() => {
+    //     var maxScrollLeft = showabox.scrollWidth - showabox.clientWidth
+    //     if (Math.floor(showabox.scrollLeft) < maxScrollLeft) {
+    //         showabox.scrollLeft += 220
+    //     } else {
+    //         showabox.scrollLeft = 0
+    //     }
+    //     // console.log(boxlogoimg.scrollLeft);
+    //     // console.log(maxScrollLeft);
+    // }, 1500)
+
+    // setInterval(() => {
+    //     var maxScrollLefts = heisebox.scrollWidth - heisebox.clientWidth
+    //     if (Math.floor(heisebox.scrollLeft) < maxScrollLefts) {
+    //         heisebox.scrollLeft += 210
+    //     } else {
+    //         heisebox.scrollLeft = 0
+    //     }
+    // }, 2500)
+
+    imgfirstX.forEach(e => {
+        e.addEventListener('mouseover', ex => {
+            console.log(ex.target.dataset.name);
+            cardtitle.forEach(e => {
+                if (ex.target.dataset.name == e.dataset.name) {
+                    console.log("OK");
+                    e.style.width = "100%"
+                    e.style.opacity = "1"
+                    e.style.height = "auto"
+                }
+            })
+        })
+    })
 </script>
 
 </html>

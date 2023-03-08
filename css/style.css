@@ -159,7 +159,6 @@ body {
     background-color: #ffffff;
     transition: 0.4s;
     height: 300%;
-    transform: translate(-50%, -50%) rotate(45deg);
     z-index: -1;
 }
 
