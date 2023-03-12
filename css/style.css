@@ -153,10 +153,11 @@ body {
 .btnlog::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
     width: 0;
     background-color: #ffffff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
     transition: 0.4s;
     height: 300%;
     z-index: -1;
