@@ -138,16 +138,16 @@
                         var dat = JSON.parse(data);
                         if (dat.status == 1) {
                             Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Login Success',
-                                showConfirmButton: false,
-                                timer: 4000,
-                                timerProgressBar: true,
-                                width: '25em',
-                            })
-                            var audio = new Audio('s.mp3');
-                            audio.play();
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Login Success',
+                                    showConfirmButton: false,
+                                    timer: 4000,
+                                    timerProgressBar: true,
+                                    width: '25em',
+                                })
+                                // var audio = new Audio('s.mp3');
+                                // audio.play();
                             setTimeout(() => {
                                 window.location.href = "index.html"
                             }, 4400)
