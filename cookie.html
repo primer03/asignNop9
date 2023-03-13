@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.3/sweetalert2.min.css">
+    <title>Document</title>
+</head>
+<style>
+    .login-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #333;
+        color: #fff;
+        font-family: 'Open Sans', sans-serif;
+        border-radius: 5px;
+    }
+    
+    .login-form h2 {
+        text-align: center;
+        font-weight: 600;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #444;
+        color: #fff;
+        font-size: 1rem;
+        font-family: 'Open Sans', sans-serif;
+        box-sizing: border-box;
+    }
+    
+    button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #d40000;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: #e60000;
+    }
+    /* Kamen Rider-style logo */
+    
+    .login-form::before {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 80px;
+        background-image: url("kamen-rider-logo.png");
+        background-size: cover;
+        margin: 0 auto 20px auto;
+    }
+</style>
+
+<body>
+    <div class="login-form">
+        <h2>Kamen Rider Login</h2>
+        <form id="fr">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.3/sweetalert2.all.min.js"></script>
+<script>
+    // document.cookie = 'userId=PUSSY; expires=' + new Date(Date.now() + (60 * 1000)).toUTCString() + '; path=/';
+    // document.cookie = "myCookie=12345; expires=" + new Date(Date.now() + 3600000).toUTCString() + "; path=/";
+    // document.cookie = "PU=12345; expires=" + new Date(Date.now() + 3600000).toUTCString() + "; path=/";
+    var cookbool = false;
+    var fr = document.getElementById('fr');
+
+    function Checkcook(cookname) {
+        var coookie = document.cookie.split(';')
+        for (const key in coookie) {
+            var cookies = coookie[key].trim();
+            if (cookies.indexOf(cookname) === 0) {
+                cookbool = true
+                break
+            } else {
+                cookbool = false
+            }
+        }
+    }
+
+    window.onload = () => {
+        Checkcook("username")
+        console.log(cookbool);
+        if (cookbool === true) {
+            window.location.href = "index.html"
+        } else {
+            fr.addEventListener('submit', async(e) => {
+                try {
+                    e.preventDefault();
+                    var formData = new FormData();
+                    formData.append('Username', fr.elements['username'].value)
+                    formData.append('password', fr.elements['password'].value)
+                    const res = await fetch('php/setcook.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    if (res.ok) {
+                        const data = await res.text();
+                        var dat = JSON.parse(data);
+                        if (dat.status == 1) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Login Success',
+                                showConfirmButton: false,
+                                timer: 4000,
+                                timerProgressBar: true,
+                                width: '25em',
+                            })
+                            var audio = new Audio('s.mp3');
+                            audio.play();
+                            setTimeout(() => {
+                                window.location.href = "index.html"
+                            }, 4400)
+                        }
+                    } else {
+                        throw new Error(res.status)
+                    }
+                } catch (e) {
+                    console.log(e.message);
+                }
+            })
+        }
+    }
+</script>
+
+</html>
