@@ -72,7 +72,7 @@
         display: block;
         width: 80px;
         height: 80px;
-        background-image: url("kamen-rider-logo.png");
+        /* background-image: url("kamen-rider-logo.png"); */
         background-size: cover;
         margin: 0 auto 20px auto;
     }
@@ -117,10 +117,37 @@
         }
     }
 
-    window.onload = () => {
+    function getcook(cookname) {
+        var coookie = document.cookie.split(';')
+        for (const key in coookie) {
+            var cookies = coookie[key].trim();
+            if (cookies.indexOf(cookname) === 0) {
+                return cookies.substring(cookname.length + 1, cookies.length);
+            }
+        }
+        return null
+    }
+
+    window.onload = async() => {
         Checkcook("username")
         console.log(cookbool);
         if (cookbool === true) {
+            // console.log(getcook("username"));
+            try {
+                const resx = await fetch('php/setcook.php?user=' + getcook("username"), {
+                    method: 'GET'
+                        // headers: {
+                        //     'Content-Type': 'application/json'
+                        // }
+                })
+                if (resx.ok) {
+                    const datax = await resx.text();
+                } else {
+                    throw new Error(resx.status)
+                }
+            } catch (ex) {
+                console.log(ex.message);
+            }
             window.location.href = "index.html"
         } else {
             fr.addEventListener('submit', async(e) => {
@@ -135,6 +162,7 @@
                     })
                     if (res.ok) {
                         const data = await res.text();
+                        console.log(data);
                         var dat = JSON.parse(data);
                         if (dat.status == 1) {
                             Swal.fire({
