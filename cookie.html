@@ -132,13 +132,9 @@
         Checkcook("username")
         console.log(cookbool);
         if (cookbool === true) {
-            // console.log(getcook("username"));
             try {
                 const resx = await fetch('php/setcook.php?user=' + getcook("username"), {
                     method: 'GET'
-                        // headers: {
-                        //     'Content-Type': 'application/json'
-                        // }
                 })
                 if (resx.ok) {
                     const datax = await resx.text();
@@ -179,6 +175,16 @@
                             setTimeout(() => {
                                 window.location.href = "index.html"
                             }, 4400)
+                        } else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Login Fail',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                width: '25em',
+                            })
                         }
                     } else {
                         throw new Error(res.status)

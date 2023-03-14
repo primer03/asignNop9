@@ -86,15 +86,38 @@
                         })
                         if (res.ok) {
                             const data = await res.json();
-                            formkamen.reset()
                             console.log(data);
+                            if (data.message == 'success') {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Success',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    width: '25em',
+                                })
+                                formkamen.reset()
+                                setTimeout(() => {
+                                    window.location.href = "cookie.html";
+                                }, 2400)
+                            } else {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: 'Fail',
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    width: '25em',
+                                })
+                            }
                         } else {
                             throw new Error(res.status)
                         }
                     } catch (e) {
                         console.log(e.message)
                     }
-                    console.log(datax);
                 } else {
                     alert("Passwords not match")
                 }
