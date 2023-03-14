@@ -1,0 +1,108 @@
+body {
+    /* background-color: #F0F0F0; */
+    background-image: url("../wa.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    /* background-color: #cccccc; */
+}
+
+.formregis {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+form {
+    width: 500px;
+    /* margin: 0 auto; */
+    background-color: #333366;
+    padding: 30px;
+    box-sizing: border-box;
+    color: #F0F0F0;
+    /* font-family: Arial, sans-serif; */
+    border: 5px solid #FF5F5F;
+    border-radius: 20px;
+    height: auto;
+}
+
+h2 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 30px;
+    color: #FF5F5F;
+    text-shadow: 2px 2px #333366;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    background-color: #F9E75E;
+    color: #333366;
+    font-weight: bold;
+    box-shadow: 2px 2px #333366;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    box-shadow: 3px 3px #FF5F5F;
+}
+
+input[type="submit"] {
+    background-color: #FF5F5F;
+    color: #F0F0F0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px #333366;
+}
+
+input[type="submit"]:hover {
+    background-color: #F9E75E;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    background-color: #F9E75E;
+    color: #333366;
+    font-weight: bold;
+    box-shadow: 2px 2px #333366;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: 3px 3px #FF5F5F;
+}
+
+#favorite-rider option {
+    font-size: 20px;
+}
+
+.swal2-title {
+    font-size: 20px !important;
+    /* font-family: Georgia, serif; */
+    font-family: 'Tahoma';
+    text-shadow: 0 0 black;
+}

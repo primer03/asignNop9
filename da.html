@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css">
+    <title>Document</title>
+</head>
+<style>
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    
+    .password-input-container {
+        position: relative;
+    }
+    
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+    
+    .toggle-password:hover {
+        opacity: 0.7;
+    }
+    
+    .toggle-password.fas.fa-eye-slash::before {
+        content: "\f070";
+    }
+    
+    .toggle-password.fas.fa-eye::before {
+        content: "\f06e";
+    }
+    
+    input[type="password"].password-hidden {
+        letter-spacing: 0.3em;
+    }
+</style>
+
+<body>
+    <form>
+        <h2>Login</h2>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <div class="password-input-container">
+                <input type="password" id="password" name="password" required>
+                <i class="toggle-password fas fa-eye"></i>
+                <!-- <i class="fa-regular fa-eye"></i> -->
+            </div>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</body>
+
+</html>

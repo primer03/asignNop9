@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="contai">
+        <div class="formregis">
+            <form id="formkamen">
+                <h2>Register for Kamen Rider</h2>
+                <label for="username">Username:</label>
+                <input type="text" pattern="[A-Za-z0-9_-]{3,16}\S*" id="username" name="username" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <label for="favorite-rider">Favorite Rider Series:</label>
+                <select id="favorite-rider" name="favorite-rider">
+                </select>
+                <input type="submit" value="Register">
+            </form>
+        </div>
+
+    </div>
+</body>
+<script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script>
+    var favoriterider = document.getElementById('favorite-rider');
+    var formkamen = document.getElementById('formkamen');
+    window.onload = async() => {
+        try {
+            const res = await fetch("api/rest.php/kamen", {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJpYXQiOjEzNTY5OTk1MjQsImRhdGEiOnsiaWQiOjIzLCJOYW1lIjoiS2FidXRvIn19.Erw9cNBBz8mgWOH-cycuLjEehrU-MTOabMNe5S8eKVk',
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (res.ok) {
+                const data = await res.json();
+                console.log(data);
+                var dataname = data.map((data) => (data.kamendata.kamen_name))
+                for (const key in dataname) {
+                    favoriterider.innerHTML += '<option value="' + (dataname[key]) + '">' + (dataname[key]) + '</option>'
+                }
+            } else {
+                throw new Error(res.status)
+            }
+        } catch (e) {
+            console.log(e.message)
+        }
+    }
+
+    formkamen.addEventListener('submit', async(e) => {
+        var username = formkamen.elements['username'].value
+        var email = formkamen.elements['email'].value
+        var password = formkamen.elements['password'].value
+        var favorite = formkamen.elements['favorite-rider'].value
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,24}$/;
+        e.preventDefault();
+        if (checkinpu([username, email, password, favorite])) {
+            if (regex.test(password)) {
+                if (formkamen.elements['password'].value == formkamen.elements['confirm-password'].value) {
+                    const datax = {
+                        ":u_username": formkamen.elements['username'].value,
+                        ":u_email": formkamen.elements['email'].value,
+                        ":u_password": formkamen.elements['password'].value,
+                        ":u_favorite": formkamen.elements['favorite-rider'].value,
+                    }
+                    try {
+                        const res = await fetch("php/rest.php", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(datax)
+                        })
+                        if (res.ok) {
+                            const data = await res.json();
+                            console.log(data);
+                        } else {
+                            throw new Error(res.status)
+                        }
+                    } catch (e) {
+                        console.log(e.message)
+                    }
+                    console.log(datax);
+                } else {
+                    alert("Passwords not match")
+                }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'It must contain at least one lowercase letter. \n' +
+                        'It must contain at least one uppercase letter. \n' +
+                        'It must contain at least one digit. \n' +
+                        'It must contain at least one special character from the set "!@#$%^&*_=+-". \n' +
+                        'It must be between 8 and 24 characters long.',
+                    width: '40em',
+                });
+            }
+        }
+    })
+
+    var checkinpu = (dataarr) => {
+        for (const key in dataarr) {
+            if (dataarr[key] == "") {
+                return false
+            }
+        }
+        return true
+    }
+</script>
+
+</html>
