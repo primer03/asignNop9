@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style copy 5.css">
     <link rel="stylesheet" href="css/dracula.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
     <title>Document</title>
@@ -35,27 +35,151 @@
         </div>
     </div>
     <div class="box" id="ok1">
-        <div class="codebox">
-            <div class="codehead">
-                <span>javascript</span>
-                <span class="copycode">Copy code</span>
+        <div class="boxbodyXD">
+            <div class="card">
+                <div class="card-header">
+                    <img src="https://i.imgur.com/Fss5Qzp.png" alt="Kamen Rider Logo">
+                    <h3>Kamen Rider Token</h3>
+                </div>
+                <div class="card-body" id="card-body">
+                </div>
             </div>
-            <pre><code class="fontcode javascript">
-    function add(a, b) {
-        return a + b;
+            <span class="topictxt">Kamen rider Series Data</span>
+            <div class="codebox">
+                <div class="codehead">
+                    <span>javascript</span>
+                    <span data-name="kamex" class="copycode">Copy code</span>
+                </div>
+                <pre><code data-name="kamex" class="fontcode javascript">
+    try {
+        const res = await fetch("http://localhost/assignnop9/api/rest.php/kamen", {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer YOUR TOKEN',
+                'Content-Type': 'application/json'
+            }
+        })
+        if (res.ok) {
+            const data = await res.json();
+            console.log(data);
+        } else {
+            throw new Error(res.status)
+        }
+    } catch (e) {
+        console.log(e.message)
     }
-                    
-    const result = add(2, 3);
-    console.log(result);
-    hljs.highlightAll();
-                    </code></pre>
+                        </code></pre>
+            </div>
+            <span class="topictxt">Kamen rider Series Data ById</span>
+            <div class="codebox">
+                <div class="codehead">
+                    <span>javascript</span>
+                    <span data-name="kamew" class="copycode">Copy code</span>
+                </div>
+                <pre><code data-name="kamew" class="fontcode javascript">
+    try {
+        const res = await fetch("http://localhost/assignnop9/api/rest.php/kamen/kamenID", {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer YOUR TOKEN',
+                'Content-Type': 'application/json'
+            }
+        })
+        if (res.ok) {
+            const data = await res.json();
+            console.log(data);
+        } else {
+            throw new Error(res.status)
+        }
+    } catch (e) {
+        console.log(e.message)
+    }
+                        </code></pre>
+            </div>
         </div>
     </div>
 </body>
 <script src="js/observer.js"></script>
-<script src="js/hightlightcopycode.js"></script>
+<script src="js/hightlightcopycode copy.js"></script>
 <script>
     hljs.highlightAll();
+</script>
+<script>
+    var cardbody = document.getElementById("card-body");
+    var btncreatex = null;
+
+    function Checkcook(cookname) {
+        var coookie = document.cookie.split(';')
+        for (const key in coookie) {
+            var cookies = coookie[key].trim();
+            if (cookies.indexOf(cookname) === 0) {
+                cookbool = true
+                break
+            } else {
+                cookbool = false
+            }
+        }
+    }
+
+    function getcook(cookname) {
+        var coookie = document.cookie.split(';')
+        for (const key in coookie) {
+            var cookies = coookie[key].trim();
+            if (cookies.indexOf(cookname) === 0) {
+                return cookies.substring(cookname.length + 1, cookies.length);
+            }
+        }
+        return null
+    }
+
+    window.onload = async() => {
+        Checkcook("username")
+        console.log(cookbool);
+        if (cookbool === true) {
+            try {
+                const resx = await fetch('php/rest.php?user=' + getcook("username"), {
+                    method: 'GET'
+                })
+                if (resx.ok) {
+                    const datax = await resx.json();
+                    console.log(datax);
+                    if (datax[0].u_token != null) {
+                        cardbody.innerHTML = '<p>' + (datax[0].u_token) + '</p>'
+                    } else {
+                        cardbody.innerHTML = '<button type="button" id="createtoken">Create token</button>'
+                        btncreatex = document.getElementById('createtoken');
+                        btncreatex.onclick = async() => {
+                            var formdataX = new FormData();
+                            formdataX.append('id', datax[0].u_id)
+                            formdataX.append('username', datax[0].u_username)
+                            try {
+                                const resD = await fetch('api/index.php/getToken', {
+                                    method: 'POST',
+                                    body: formdataX
+                                })
+                                if (resD.ok) {
+                                    const Datato = await resD.json();
+                                    // console.log(Datato);
+                                    if (Datato.status == 1) {
+                                        cardbody.innerHTML = "";
+                                        cardbody.innerHTML = '<p>' + (Datato.Token) + '</p>'
+                                    }
+                                }
+                            } catch (error) {
+                                console.log(error.message);
+                            }
+                        }
+                    }
+                } else {
+                    throw new Error(resx.status)
+                }
+            } catch (ex) {
+                console.log(ex.message);
+            }
+        } else {
+            window.history.back();
+        }
+    }
 </script>
 
 </html>

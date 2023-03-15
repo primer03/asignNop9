@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .card {
+        display: block;
+        margin: auto;
+        max-width: 800px;
+        box-sizing: border-box;
+        background-color: aqua;
+    }
+    
+    .card-body {
+        padding: 10px;
+        display: block;
+        box-sizing: border-box;
+    }
+</style>
+
+<body>
+</body>
+<script>
+    window.onload = async() => {
+        try {
+            const res = await fetch("api/rest.php/kamen/kamenID", {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer YOUR TOKEN',
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (res.ok) {
+                const data = await res.json();
+                console.log(data);
+            } else {
+                throw new Error(res.status)
+            }
+        } catch (e) {
+            console.log(e.message)
+        }
+    }
+</script>
+
+</html>

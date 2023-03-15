@@ -15,17 +15,17 @@
             <img src="img/logo.png" alt="">
         </div>
         <div class="nav-end">
-            <ul>
-                <li><a class="btnXD" href="">Document</a></li>
+            <ul id="menuXDX">
+                <li><a class="btnXD" href="dt.html">Document</a></li>
                 <li class="drob">
-                    <a class="btnXD" href="">Signup</a>
-                    <ul class="menudrob">
+                    <a class="btnXD" href="register.html">Signup</a>
+                    <!-- <ul class="menudrob">
                         <li><a class="menulink" href="">1</a></li>
                         <li><a class="menulink" href="">1</a></li>
                         <li><a class="menulink" href="">1</a></li>
-                    </ul>
+                    </ul> -->
                 </li>
-                <li><a class="btnXD" href="">Login</a></li>
+                <li><a class="btnXD" href="cookie.html">Login</a></li>
             </ul>
         </div>
     </nav>
@@ -140,6 +140,7 @@
     var heisebox = document.querySelector('.heisebox')
     var imgfirstX = document.querySelectorAll('.imgfirstX')
     var cardtitle = document.querySelectorAll('.card-title')
+    var menuXDX = document.getElementById('menuXDX');
     var slidex = null;
 
     // for (let index = 2; index <= 9; index++) {
@@ -181,10 +182,10 @@
 
     imgfirstX.forEach(e => {
         e.addEventListener('mouseover', ex => {
-            console.log(ex.target.dataset.name);
+            // console.log(ex.target.dataset.name);
             cardtitle.forEach(e => {
                 if (ex.target.dataset.name == e.dataset.name) {
-                    console.log("OK");
+                    // console.log("OK");
                     e.style.width = "100%"
                     e.style.opacity = "1"
                     e.style.height = "auto"
@@ -192,6 +193,63 @@
             })
         })
     })
+
+    function Checkcook(cookname) {
+        var coookie = document.cookie.split(';')
+        for (const key in coookie) {
+            var cookies = coookie[key].trim();
+            if (cookies.indexOf(cookname) === 0) {
+                cookbool = true
+                break
+            } else {
+                cookbool = false
+            }
+        }
+    }
+
+    function getcook(cookname) {
+        var coookie = document.cookie.split(';')
+        for (const key in coookie) {
+            var cookies = coookie[key].trim();
+            if (cookies.indexOf(cookname) === 0) {
+                return cookies.substring(cookname.length + 1, cookies.length);
+            }
+        }
+        return null
+    }
+
+    window.onload = async() => {
+        Checkcook("username")
+        console.log(cookbool);
+        if (cookbool === true) {
+            try {
+                const resx = await fetch('php/rest.php?user=' + getcook("username"), {
+                    method: 'GET'
+                })
+                if (resx.ok) {
+                    const datax = await resx.json();
+                    console.log(datax);
+                    menuXDX.innerHTML = '<li><a class="btnXD" href="dt.html">Document</a></li>' +
+                        ' <li class="drob">' +
+                        '  <a class="btnXD" href="#">' + (datax[0].u_username) + '</a>' +
+                        '  <ul class="menudrob">' +
+                        '<li><a class="menulink" href="php/logout.php">logout</a></li>' +
+                        ' </ul>' +
+                        ' </li>'
+                } else {
+                    throw new Error(resx.status)
+                }
+            } catch (ex) {
+                console.log(ex.message);
+            }
+        } else {
+            menuXDX.innerHTML = '<li><a class="btnXD" href="dt.html">Document</a></li>' +
+                ' <li class="drob">' +
+                '  <a class="btnXD" href="register.html">Signup</a>' +
+                ' </li>' +
+                '<li><a class="btnXD" href="cookie.html">Login</a></li>'
+        }
+    }
 </script>
 
 </html>

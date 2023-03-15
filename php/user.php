@@ -30,6 +30,26 @@
             return $row;
         }
 
+        public function getuser($name){
+            $sql = "SELECT u_id,u_username,u_email,u_token FROM tbl_user WHERE u_username = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(1,$name);
+            $stmt->execute();
+            // $row = $stmt->rowCount();
+            // return $row;
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        }
+
+        public function updatetoken($token,$id){
+            $sql = "UPDATE tbl_user SET u_token = ? WHERE u_id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(1,$token);
+            $stmt->bindParam(2,$id);
+            $stmt->execute();
+            return 1;
+        }
+
         public function checkemail($email){
             $sql = "SELECT *FROM tbl_user WHERE u_email = ?";
             $stmt = $this->pdo->prepare($sql);
