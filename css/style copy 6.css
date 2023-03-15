@@ -125,7 +125,7 @@ body {
     margin: 6px;
 }
 
-.naxlrft>img {
+.naxlrft>a>img {
     width: 90px;
     height: 100%;
     object-fit: cover;
@@ -227,6 +227,7 @@ pre {
     color: #ff79c6;
     display: block;
     box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
 .card:hover {
@@ -260,7 +261,7 @@ pre {
 }
 
 .card-body::-webkit-scrollbar-thumb {
-    background: #750143;
+    background: #FF5F9E;
 }
 
 .card-body::-webkit-scrollbar {
@@ -307,4 +308,24 @@ pre {
 
 .boxbodyXD {
     max-width: 800px;
+    margin: auto;
+}
+
+.topictxt {
+    padding: 10px;
+    width: auto;
+    background: #060047;
+    color: #ff79c6;
+    display: inline-block;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.hljs::-webkit-scrollbar-thumb {
+    background: #FF5F9E;
+}
+
+.hljs::-webkit-scrollbar {
+    height: 8px;
+    /* background-color: transparent; */
 }
