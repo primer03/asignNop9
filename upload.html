@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" id="frXD">
+        <input type="file" name="file" id="file">
+        <button type="submit">OK</button>
+    </form>
+</body>
+<script>
+    var XD = document.getElementById('frXD')
+    const ALBUM_ID = 'nROfR2V';
+    XD.addEventListener('submit', async(e) => {
+        e.preventDefault();
+        console.log(XD.elements['file'].files[0]);
+        var formData = new FormData()
+        formData.append('image', XD.elements['file'].files[0])
+            // formData.append('album', ALBUM_ID);
+        try {
+            const res = await fetch("https://api.imgur.com/3/image", {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Client-ID 0753979fc150302'
+                },
+                body: formData,
+                redirect: 'follow'
+            })
+            if (res.ok) {
+                const data = await res.json();
+                console.log(data.data.link);
+            }
+        } catch (error) {
+            console.log(error.message);
+            console.log(await error.res.text());
+        }
+        // var myHeaders = new Headers();
+        // myHeaders.append("Authorization", "Client-ID 0753979fc150302");
+
+        // var formdata = new FormData();
+        // formdata.append("image", XD.elements['file'].files[0]);
+
+        // var requestOptions = {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: formdata,
+        //     redirect: 'follow'
+        // };
+
+        // fetch("https://api.imgur.com/3/image", requestOptions)
+        //     .then(response => response.text())
+        //     .then(result => console.log(result))
+        //     .catch(error => console.log('error', error));
+    })
+</script>
+
+</html>

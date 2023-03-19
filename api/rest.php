@@ -33,10 +33,6 @@
                 }else{
                     echo json_encode(["messge"=>'ID not found']);
                 }  
-            }else if($Cpath == 'charector' && $method == 'POST'){
-                $arrcha = [["kamenridername"=>"Kamen Rider Gaimu","charectorname"=>["HEE","YAI"],"charectorimg"=>["https://i.imgur.com/Xk1p094.png","https://i.imgur.com/iWq0zKt.png"]]];
-                header("Content-Type:application/json");
-                echo json_encode($arrcha);
             }else if($Cpath == 'kamenname' && $method == 'POST'){
                 $datx = $kamen->getkamenriderlist();
                 header("Content-Type:application/json");
@@ -51,6 +47,18 @@
                 $datacharimg = $kamen->getcharectorImg();
                 header("Content-Type:application/json");
                 echo json_encode($datacharimg);
+            }else if($Cpath == 'getfirsterakamenrider' && $method == 'POST'){
+                $datakafirst = $kamen->getfirsterakamenrider();
+                header("Content-Type:application/json");
+                echo json_encode($datakafirst);
+            }else if($Cpath == 'getlastkamenrider' && $method == 'POST'){
+                $datakalast = $kamen->getlastkamenrider();
+                header("Content-Type:application/json");
+                echo json_encode($datakalast);
+            }else if($Cpath == 'geteradata' && $method == 'POST'){
+                $dataera = $kamen->geteradata();
+                header("Content-Type:application/json");
+                echo json_encode($dataera);
             }else if($Cpath == 'kamenAllchatectorById' && $method == 'GET'){
                 if(isset($patjarr[1]) != null && intval($patjarr[1]) != 0){
                     $datacharID = $kamen->getcharectorById(intval($patjarr[1]));

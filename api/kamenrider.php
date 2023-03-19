@@ -11,7 +11,7 @@ class dbkamen{
     }
 
     public function getkamenriderlist(){
-        $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id;');
+        $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,kamen_logo,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id;');
         $data = $result->fetchAll(PDO::FETCH_ASSOC);
         foreach($data as $key=>$value){
             foreach($value as $key1=>$datas){
@@ -59,10 +59,29 @@ class dbkamen{
          return ["mesdage"=>'error'];
         }
      }
+
+    public function getlastkamenrider(){
+        $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,kamen_logo,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id ORDER BY era.era_id DESC, km.kamen_id DESC LIMIT 1;');
+        $data = $result->fetchAll(PDO::FETCH_ASSOC);
+        $row = $result->rowCount();
+        if($row > 0){
+            foreach($data as $key=>$value){
+                foreach($value as $key1=>$datas){
+                 if($key1 == 'era_name'){
+                     $data[$key]['kamen_era'] =  $data[$key]['era_name'];
+                     unset($data[$key]['era_name']);
+                 }
+                }
+             }
+             return $data;
+        }else{
+            return ["message"=>'error'];
+        }
+    }
     
 
     public function getkamenrider(){
-        $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id;');
+        $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,kamen_logo,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id;');
         $data = $result->fetchAll(PDO::FETCH_ASSOC);
         $row = $result->rowCount();
         if($row > 0){
@@ -89,7 +108,7 @@ class dbkamen{
     }
 
     public function getkamenriderById($id){
-        $sql = "SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id and km.kamen_id = ?";
+        $sql = "SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,kamen_logo,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id and km.kamen_id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(1,$id);
         $stmt->execute();
@@ -113,6 +132,36 @@ class dbkamen{
                 $arr["kamenByid"]["kamendatacharec"] = $this->getcharectordataById($id);
             }
             return  $arr;
+        }else{
+            return ["message"=>'error'];
+        }
+    }
+
+    public function getfirsterakamenrider(){
+        $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,kamen_logo,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id and km.kamen_first = "YES" ;');
+        $data = $result->fetchAll(PDO::FETCH_ASSOC);
+        $row = $result->rowCount();
+        if($row > 0){
+            foreach($data as $key=>$value){
+                foreach($value as $key1=>$datas){
+                 if($key1 == 'era_name'){
+                     $data[$key]['kamen_era'] =  $data[$key]['era_name'];
+                     unset($data[$key]['era_name']);
+                 }
+                }
+             }
+             return $data;
+        }else{
+            return ["message"=>'error'];
+        }
+    }
+
+    public function geteradata(){
+        $result = $this->pdo->query('SELECT *FROM tbl_era');
+        $data = $result->fetchAll(PDO::FETCH_ASSOC);
+        $row = $result->rowCount();
+        if($row > 0){
+             return $data;
         }else{
             return ["message"=>'error'];
         }

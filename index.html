@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/indext.css">
+    <link rel="stylesheet" href="css/indext4.css">
     <title>Document</title>
 </head>
 
@@ -131,7 +131,45 @@
             </div> -->
         </div>
     </div>
-    <div class="" style="height: 100vh;"></div>
+    <div class="databox">
+        <div class="datakamenbox">
+            <div class="navdataXD">
+                <ul>
+                    <li id="menuiconXD" data-name="showa" class="activenav">
+                        <button data-name="showa" id="menulinkdata" class="menulinkdata" type="button">XDXD</button>
+                    </li>
+                    <li id="menuiconXD" data-name="heisei">
+                        <button data-name="heisei" id="menulinkdata" class="menulinkdata" type="button">XDXD</button>
+                    </li>
+                    <li id="menuiconXD">
+                        <button data-name="reiwa" data-name="reiwa" id="menulinkdata" class="menulinkdata" type="button">XDXD</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="navdata">
+                <div id="boxiconx" class="boxiconx">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <div class="databox" style="height: 100vh;">
+        <div class="datakamenbox">
+            <div class="navdata">
+                <ul>
+                    <li class="activenav">
+                        <button class="menulinkdata" type="button">XDXD</button>
+                    </li>
+                    <li>
+                        <button class="menulinkdata" type="button">XDXD</button>
+                    </li>
+                    <li>
+                        <button class="menulinkdata" type="button">XDXD</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div> -->
 </body>
 <script src="js/observer.js"></script>
 <script>
@@ -141,7 +179,80 @@
     var imgfirstX = document.querySelectorAll('.imgfirstX')
     var cardtitle = document.querySelectorAll('.card-title')
     var menuXDX = document.getElementById('menuXDX');
+    var boxiconx = document.getElementById('boxiconx');
+    var menulinkdata = document.querySelectorAll('#menulinkdata')
+    var menuiconXD = document.querySelectorAll('#menuiconXD')
     var slidex = null;
+
+    var createicon = () => {
+        for (let index = 1; index <= 9; index++) {
+            let cardicon = document.createElement('div')
+            cardicon.classList.add('cardicon')
+            boxiconx.appendChild(cardicon)
+            let imgxd = document.createElement('img')
+            imgxd.classList.add('imgiconX')
+            imgxd.src = 'img/logorider/showa/0' + index + '.png'
+            cardicon.appendChild(imgxd)
+            let nametag = document.createElement('div')
+            nametag.classList.add('nametag')
+            nametag.textContent = "OK"
+            cardicon.appendChild(nametag)
+        }
+    }
+
+    menulinkdata.forEach(e => {
+
+        e.addEventListener('click', (ex) => {
+            console.log(ex.target.dataset.name);
+            if (ex.target.dataset.name == 'showa') {
+                boxiconx.innerHTML = "";
+                menuiconXD.forEach(e => {
+                    if (e.getAttribute('data-name') == ex.target.dataset.name) {
+                        e.classList.add('activenav')
+                    } else {
+                        e.classList.remove('activenav')
+                    }
+                })
+                for (let index = 1; index <= 9; index++) {
+                    let cardicon = document.createElement('div')
+                    cardicon.classList.add('cardicon')
+                    boxiconx.appendChild(cardicon)
+                    let imgxd = document.createElement('img')
+                    imgxd.classList.add('imgiconX')
+                    imgxd.src = 'img/logorider/showa/0' + index + '.png'
+                    cardicon.appendChild(imgxd)
+                    let nametag = document.createElement('div')
+                    nametag.classList.add('nametag')
+                    nametag.textContent = "OK"
+                    cardicon.appendChild(nametag)
+                }
+            } else if (ex.target.dataset.name == 'heisei') {
+                boxiconx.innerHTML = "";
+                menuiconXD.forEach(e => {
+                    if (e.getAttribute('data-name') == ex.target.dataset.name) {
+                        e.classList.add('activenav')
+                    } else {
+                        e.classList.remove('activenav')
+                    }
+                })
+                for (let index = 1; index <= 20; index++) {
+                    let cardicon = document.createElement('div')
+                    cardicon.classList.add('cardicon')
+                    boxiconx.appendChild(cardicon)
+                    let imgxd = document.createElement('img')
+                    imgxd.classList.add('imgiconX')
+                    imgxd.src = 'img/logorider/Heisei/0' + index + '.webp'
+                    cardicon.appendChild(imgxd)
+                    let nametag = document.createElement('div')
+                    nametag.classList.add('nametag')
+                    nametag.textContent = "OK"
+                    cardicon.appendChild(nametag)
+                }
+            }
+        })
+    })
+
+
 
     // for (let index = 2; index <= 9; index++) {
     //     showabox.innerHTML += '<div class="boximgtitle">' +
@@ -219,6 +330,7 @@
     }
 
     window.onload = async() => {
+        createicon();
         Checkcook("username")
         console.log(cookbool);
         if (cookbool === true) {
