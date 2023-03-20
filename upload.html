@@ -27,7 +27,7 @@
             const res = await fetch("https://api.imgur.com/3/image", {
                 method: 'POST',
                 headers: {
-                    Authorization: 'Client-ID 0753979fc150302'
+                    Authorization: 'Client-ID 2e325d1bf69934e'
                 },
                 body: formData,
                 redirect: 'follow'
@@ -38,7 +38,6 @@
             }
         } catch (error) {
             console.log(error.message);
-            console.log(await error.res.text());
         }
         // var myHeaders = new Headers();
         // myHeaders.append("Authorization", "Client-ID 0753979fc150302");
