@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "cloudinary-core": "^2.13.0"
+    "cloudinary-core": "^2.13.0",
+    "sweetalert2": "^11.7.3"
   }
 }
