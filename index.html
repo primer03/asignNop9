@@ -16,7 +16,7 @@
         </div>
         <div class="nav-end">
             <ul id="menuXDX">
-                <li><a class="btnXD" href="dt.html">Document</a></li>
+                <li><a class="btnXD" target="_blank" href="dt.html">Document</a></li>
                 <li class="drob">
                     <a class="btnXD" href="register.html">Signup</a>
                     <!-- <ul class="menudrob">
@@ -341,7 +341,7 @@
                 if (resx.ok) {
                     const datax = await resx.json();
                     console.log(datax);
-                    menuXDX.innerHTML = '<li><a class="btnXD" href="dt.html">Document</a></li>' +
+                    menuXDX.innerHTML = '<li><a class="btnXD" target="_blank" href="dt.html">Document</a></li>' +
                         ' <li class="drob">' +
                         '  <a class="btnXD" href="#">' + (datax[0].u_username) + '</a>' +
                         '  <ul class="menudrob">' +
@@ -355,7 +355,7 @@
                 console.log(ex.message);
             }
         } else {
-            menuXDX.innerHTML = '<li><a class="btnXD" href="dt.html">Document</a></li>' +
+            menuXDX.innerHTML = '<li><a class="btnXD" target="_blank" href="dt.html">Document</a></li>' +
                 ' <li class="drob">' +
                 '  <a class="btnXD" href="register.html">Signup</a>' +
                 ' </li>' +

@@ -1,6 +1,8 @@
 <?php 
     include_once "user.php";
+    include_once "kamen.php";
     $user = new user();
+    $kamen = new kamen();
     $key = 'KamenriderXDXD';
     $options = 0;
     $iv = openssl_random_pseudo_bytes(16);
@@ -19,6 +21,9 @@
             // echo decrypt($_GET['user'],$key);
             $datcx = $user->getuser(decrypt($_GET['user'],$key));
             echo json_encode($datcx);
+        }else if(isset($_GET['dataseries'])){
+            $datase = $kamen->getdataseries();
+            echo json_encode($datase);
         }
     }
 
