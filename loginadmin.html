@@ -154,6 +154,53 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.3/sweetalert2.all.min.js"></script>
 <script>
+    fr.addEventListener('submit', async(e) => {
+        try {
+            e.preventDefault();
+            var formData = new FormData();
+            formData.append('admin_username', fr.elements['username'].value)
+            formData.append('admin_password', fr.elements['password'].value)
+            const res = await fetch('php/rest.php', {
+                method: 'POST',
+                body: formData
+            })
+            if (res.ok) {
+                const data = await res.text();
+                console.log(data);
+                var dat = JSON.parse(data);
+                if (dat.status == 1) {
+                    Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Login Success',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            width: '25em',
+                        })
+                        // var audio = new Audio('s.mp3');
+                        // audio.play();
+                    setTimeout(() => {
+                        window.location.href = "admin/index.php"
+                    }, 3400)
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Login Fail',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        width: '25em',
+                    })
+                }
+            } else {
+                throw new Error(res.status)
+            }
+        } catch (e) {
+            console.log(e.message);
+        }
+    })
 </script>
 
 </html>

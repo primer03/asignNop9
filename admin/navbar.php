@@ -1,3 +1,12 @@
+<?php 
+session_start();
+if(!isset($_SESSION['admin'])){
+    echo "<script>";
+    echo " window.location.href = '../index.html'";
+    echo "</script>";
+    echo "sd";
+}
+ ?>
 <nav>
     <div class="nav-start">
         <a href="index.php"><img src="../img/logo.png" alt=""></a>

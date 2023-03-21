@@ -74,5 +74,21 @@
                 return $data;
             }
         }
+
+        public function selectDataadmin($username){
+            $sql = "SELECT admin_password FROM tbl_admin WHERE admin_username = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(1,$username);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $row = $stmt->rowCount();
+            if($row > 0){
+               $data[0]["status"] = "success";
+                return $data;
+            }else{
+                $data[0]["status"] = "fail";
+                return $data;
+            }
+        }
     }
 ?>

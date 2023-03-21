@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     include_once "user.php";
     include_once "kamen.php";
     $user = new user();
@@ -154,6 +155,18 @@
                 }else{
                     echo "NOXD";
                 }
+        }else if(isset($_POST['admin_username'])){
+            $dataadmin = $user->selectDataadmin($_POST['admin_username']);
+            if($dataadmin[0]['status'] == 'success'){
+                if( password_verify($_POST['admin_password'], $dataadmin[0]['admin_password'])){
+                    $_SESSION['admin']  = $_POST['admin_username'];
+                    echo json_encode(["status"=>1,"message"=>"log in success"]);
+                }else{
+                    echo json_encode(["status"=>0,"message"=>"log in fail"]);
+                }
+            }else{
+                echo json_encode(["status"=>0,"message"=>"log in fail"]);
+            }
        }else{
         $data = json_decode(file_get_contents("php://input"),true);
         $data[":u_password"] = password_hash($data[":u_password"], PASSWORD_DEFAULT);
