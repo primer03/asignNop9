@@ -1,0 +1,117 @@
+.card {
+    max-width: 1500px;
+    margin: auto;
+    padding: 10px;
+    overflow: auto;
+}
+
+table,
+td,
+th {
+    border: 1px solid black;
+}
+
+td,
+th {
+    padding: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.btnedit {
+    display: block;
+    width: 100%;
+    background: rgb(255, 230, 0);
+    text-decoration: none;
+    color: black;
+    padding: 5px 16px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    border-style: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btndelete {
+    display: block;
+    width: 100%;
+    background: red;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    padding: 5px 16px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+tbody>tr:nth-child(even) {
+    background-color: #e9e8e8;
+}
+
+input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+input[type="text"]:focus {
+    box-shadow: 3px 3px 3px #ccc;
+}
+
+input[type="text"]:focus-visible {
+    outline: 0px;
+}
+
+select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.cardbtn {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+button[type=submit] {
+    background-color: green;
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-style: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: aliceblue;
+}
+
+button[type=reset] {
+    background-color: orange;
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-style: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.labelkamen {
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 5px;
+}

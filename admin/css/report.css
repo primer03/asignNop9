@@ -31,6 +31,8 @@ table {
     padding: 5px 16px;
     border-radius: 3px;
     box-sizing: border-box;
+    border-style: none;
+    cursor: pointer;
 }
 
 .btndelete {

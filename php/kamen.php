@@ -28,5 +28,26 @@
                 return ["message"=>'error'];
             }
         }
+
+        public function checkname($namekamen){
+            $sql = "SELECT *FROM tbl_kamenrider WHERE kamen_name = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(1,$namekamen);
+            $stmt->execute();
+            $row = $stmt->rowCount();
+            if($row > 0){
+                return false;
+            }else{
+                return true;
+            }
+
+        }
+
+        public function updatekamen($datarray){
+            $sql = "UPDATE tbl_kamenrider SET kamen_name = :kamen_name,kamen_datestart = :kamen_datestart,kamen_datesend = :kamen_datesend,kamen_logo = :kamen_logo,kamen_img = :kamen_img,kamen_era = :kamen_era,kamen_ep = :kamen_ep WHERE kamen_id = :kamen_id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($datarray);
+            return 1;
+        }
     }
 ?>

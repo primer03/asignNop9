@@ -1,0 +1,59 @@
+.modal {
+    display: block;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.356);
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.cardmodal {
+    display: flex;
+    margin: auto;
+    max-width: 700px;
+    /* height: 400px; */
+    padding: 20px;
+}
+
+.bodymodal {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    position: relative;
+    padding: 0px 10px 10px 10px;
+    animation: popup;
+    animation-duration: 0.4s;
+}
+
+@keyframes popup {
+    from {
+        top: -100px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+#close {
+    color: #ccc;
+    margin: 1px 10px;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial;
+    transition: 0.3s;
+}
+
+#close:hover {
+    color: black;
+}
+
+.modalhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
