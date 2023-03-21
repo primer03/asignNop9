@@ -129,12 +129,31 @@
             }else{
                 $datarr = [":era_id"=>$_POST['era_id'],":era_name"=>$_POST['era_name'],":era_description"=>$_POST['era_description'],":era_img"=>$_POST['era_img']];
                     $data = $kamen->updateera($datarr);
-                    if($datarr > 0){
+                    if($data > 0){
                         echo json_encode(["status"=>1,"message"=>"success"]);
                     }else{
                         echo json_encode(["status"=>0,"message"=>"error"]);
                     }
             }
+        }else if(isset($_POST['era_namexd'])){
+                $imgpa = explode(".", $_FILES['era_imgxd']['name']);
+                $rand = rand();
+                $randstring = base_convert($rand,10,36);
+                $_FILES['era_imgxd']['name'] = $randstring.".".$imgpa[1];
+                $dir = "../img/logoera/";
+                $fillname = $dir.basename($_FILES['era_imgxd']['name']);
+                if(move_uploaded_file($_FILES['era_imgxd']['tmp_name'], $fillname)){
+                    $datarrx = [":era_name"=>$_POST['era_namexd'],":era_description"=>$_POST['era_descriptionxd'],":era_img"=>basename($_FILES['era_imgxd']['name'])];
+                    $datae = $kamen->addera($datarrx);
+                    if($datae > 0){
+                        echo json_encode(["status"=>1,"message"=>"success"]);
+                    }else{
+                        echo json_encode(["status"=>0,"message"=>"error"]);
+                    }
+                    // echo json_encode($datarr);
+                }else{
+                    echo "NOXD";
+                }
        }else{
         $data = json_decode(file_get_contents("php://input"),true);
         $data[":u_password"] = password_hash($data[":u_password"], PASSWORD_DEFAULT);
@@ -164,6 +183,13 @@
         }else if(isset($_GET['dataera'])){
             $datera = $kamen->getera();
             echo json_encode($datera);
+        }else if(isset($_GET['era_xd'])){
+            $dats = $kamen->deleteera($_GET['era_xd']);
+            if($dats > 0){
+                echo json_encode(["status"=>1,"message"=>"success"]);
+            }else{
+                echo json_encode(["status"=>0,"message"=>"error"]);
+            }
         }
     }
 

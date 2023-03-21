@@ -73,9 +73,42 @@
             return 1;
         }
 
+        public function deleteera($id){
+            $sql = "DELETE FROM tbl_era WHERE era_id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(1,$id);
+            $stmt->execute();
+            return 1;
+        }
+
         public function addkamen($datarray){
             if($this->checkname($datarray[':kamen_name'])){
                 $sql = "INSERT INTO tbl_kamenrider (kamen_name,kamen_datestart,kamen_datesend,kamen_logo,kamen_img,kamen_era,kamen_ep) VALUE (:kamen_name,:kamen_datestart,:kamen_datesend,:kamen_logo,:kamen_img,:kamen_era,:kamen_ep)";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute($datarray);
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+
+        public function checkeraname($eraname){
+            $sql = "SELECT *FROM tbl_era WHERE era_name = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(1,$eraname);
+            $stmt->execute();
+            $row = $stmt->rowCount();
+            if($row > 0){
+                return false;
+            }else{
+                return true;
+            }
+
+        }
+
+        public function addera($datarray){
+            if($this->checkeraname($datarray[':era_name'])){
+                $sql = "INSERT INTO tbl_era (era_name,era_description,era_img) VALUE (:era_name,:era_description,:era_img)";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->execute($datarray);
                 return 1;

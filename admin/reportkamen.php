@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/report copy 4.css">
+    <link rel="stylesheet" href="css/report copy 5.css">
     <link rel="stylesheet" href="css/modal copy 2.css">
+    <link rel="stylesheet" href="css/navbar.css">
     <title>Document</title>
 </head>
-
+<?php include_once "navbar.php" ?>
 <body>
+    
     <div class="modal" id="modal">
         <div class="cardmodal">
             <div class="bodymodal">

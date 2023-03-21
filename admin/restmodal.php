@@ -79,4 +79,15 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button type="submit">SUBMIT</button>
         <button type="reset">RESET</button>
     </div>
+<?php }else if(isset($_GET['eraadd'])){ ?>
+    <label for="" class="labelkamen">era_name</label>
+    <input type="text" name="era_name" id="" value="" required>
+    <label for="" class="labelkamen">era_description</label>
+    <textarea name="era_description" id="" cols="30" rows="10" required></textarea>
+    <label for="" class="labelkamen">kamenriderlogo</label>
+    <input type="file" accept="image/png, image/gif, image/jpeg,image/webp" name="fileimg" id="" required>
+    <div class="cardbtn">
+        <button type="submit">SUBMIT</button>
+        <button type="reset">RESET</button>
+    </div>
 <?php } ?>
