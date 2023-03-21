@@ -43,11 +43,46 @@
 
         }
 
+        public function getera(){
+            $sql = "SELECT *FROM tbl_era";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $dataera = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $dataera;
+        }
+
         public function updatekamen($datarray){
             $sql = "UPDATE tbl_kamenrider SET kamen_name = :kamen_name,kamen_datestart = :kamen_datestart,kamen_datesend = :kamen_datesend,kamen_logo = :kamen_logo,kamen_img = :kamen_img,kamen_era = :kamen_era,kamen_ep = :kamen_ep WHERE kamen_id = :kamen_id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($datarray);
             return 1;
         }
+
+        public function updateera($datarray){
+            $sql = "UPDATE tbl_era SET era_name = :era_name,era_description = :era_description,era_img = :era_img WHERE era_id  = :era_id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($datarray);
+            return 1;
+        }
+
+        public function deletekamen($id){
+            $sql = "DELETE FROM tbl_kamenrider WHERE kamen_id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(1,$id);
+            $stmt->execute();
+            return 1;
+        }
+
+        public function addkamen($datarray){
+            if($this->checkname($datarray[':kamen_name'])){
+                $sql = "INSERT INTO tbl_kamenrider (kamen_name,kamen_datestart,kamen_datesend,kamen_logo,kamen_img,kamen_era,kamen_ep) VALUE (:kamen_name,:kamen_datestart,:kamen_datesend,:kamen_logo,:kamen_img,:kamen_era,:kamen_ep)";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute($datarray);
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        
     }
 ?>

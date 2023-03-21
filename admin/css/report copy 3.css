@@ -132,3 +132,23 @@ input[type="checkbox"] {
     width: 20px;
     height: 20px;
 }
+
+.cardheadbtn {
+    max-width: 1500px;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+}
+
+.btnadd {
+    background-color: green;
+    color: aliceblue;
+    border-style: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+textarea {
+    resize: horizontal;
+}

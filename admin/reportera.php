@@ -57,17 +57,12 @@
 
     async function display() {
         try {
-            const resx = await fetch('../php/rest.php?dataseries', {
+            const resx = await fetch('../php/rest.php?dataera=OK', {
                 method: 'GET'
             })
             if (resx.ok) {
                 const datax = await resx.json();
-                var dsx = datax.filter((e) => {
-                    return e.kamen_era != 'Heisei'
-                })
-                console.log(dsx);
-                console.log(Object.keys(datax[0]));
-                console.log(Object.values(datax[0]));
+                console.log(datax);
                 let keyxd = Object.keys(datax[0]);
                 theaxd = keyxd
                 thd.innerHTML = "";
@@ -89,13 +84,14 @@
                     tbos.appendChild(tr)
                     for (const key1 in datax[key]) {
                         // console.log(key1);
-                        if (key1 == 'kamen_img') {
+                        if (key1 == 'era_img') {
                             var td = document.createElement('td')
-                            td.innerHTML = ' <img width="50" height="50" src="../img/logorider/' + datax[key][key1] + '" alt="">'
+                            // td.innerHTML = ' <img width="50" height="50" src="../img/logorider/' + datax[key][key1] + '" alt="">'
+                            td.innerHTML = ' <img width="50" height="50" src="../img/logoera/' + datax[key][key1] + '" alt="">'
                             tr.appendChild(td)
-                        } else if (key1 == 'kamen_logo') {
+                        }else if(key1 == 'era_description'){
                             var td = document.createElement('td')
-                            td.innerHTML = ' <img width="50" height="50" src="../img/logoseries/' + datax[key][key1] + '" alt="">'
+                            td.innerHTML = '<textarea name="" id="" cols="30" rows="10" readonly>'+datax[key][key1]+'</textarea>'
                             tr.appendChild(td)
                         } else {
                             var td = document.createElement('td')
@@ -104,10 +100,10 @@
                         }
                     }
                     var td = document.createElement('td')
-                    td.innerHTML = '<button class="btnedit" onclick="editdata(' + datax[key].kamen_id + ')" type="button">แก้ไข</button>'
+                    td.innerHTML = '<button class="btnedit" onclick="editdata(' + datax[key].era_id + ')" type="button">แก้ไข</button>'
                     tr.appendChild(td)
                     var td = document.createElement('td')
-                    td.innerHTML = '<button class="btndelete" onclick="deletedata(' + datax[key].kamen_id + ')" type="button">ลบ</button>'
+                    td.innerHTML = '<button class="btndelete" onclick="deletedata(' + datax[key].era_id + ')" type="button">ลบ</button>'
                     tr.appendChild(td)
                 }
                 console.log(arrdata);
@@ -122,8 +118,9 @@
     async function editdata(id) {
         modal.style.display = "block"
         formXD.innerHTML = ""
+        console.log(id);
         try {
-            const res = await fetch('restmodal.php?kamenid=' + id, {
+            const res = await fetch('restmodal.php?eraid=' + id, {
                 method: 'GET'
             })
             if (res.ok) {
@@ -153,22 +150,14 @@
 
     async function editdataXD() {
         var formdataXD = new FormData()
-        formdataXD.append('kamen_id', formXD.elements['kamen_id'].value)
-        formdataXD.append('kamen_name', formXD.elements['kamen_name'].value)
-        formdataXD.append('kamen_datestart', formXD.elements['kamen_datestart'].value)
-        formdataXD.append('kamen_datesend', formXD.elements['kamen_datesend'].value)
-        if (formXD.elements['filelogo'].files[0] == undefined) {
-            formdataXD.append('kamen_logo', formXD.elements['kamen_logo'].value)
-        } else {
-            formdataXD.append('kamen_logo', formXD.elements['filelogo'].files[0])
-        }
+        formdataXD.append('era_id', formXD.elements['era_id'].value)
+        formdataXD.append('era_name', formXD.elements['era_name'].value)
+        formdataXD.append('era_description', formXD.elements['era_description'].value)
         if (formXD.elements['fileimg'].files[0] == undefined) {
-            formdataXD.append('kamen_img', formXD.elements['kamen_img'].value)
+            formdataXD.append('era_img', formXD.elements['era_img'].value)
         } else {
-            formdataXD.append('kamen_img', formXD.elements['fileimg'].files[0])
+            formdataXD.append('era_img', formXD.elements['fileimg'].files[0])
         }
-        formdataXD.append('kamen_era', formXD.elements['kamen_era'].value)
-        formdataXD.append('kamen_ep', formXD.elements['kamen_ep'].value)
         try {
             const res = await fetch('../php/rest.php', {
                 method: 'POST',
@@ -190,72 +179,72 @@
     }
 
 
-    async function addkamen() {
-        modal.style.display = "block"
-        formXD.innerHTML = ""
-        try {
-            const res = await fetch('restmodal.php?kamenadd=ok', {
-                method: 'GET'
-            })
-            if (res.ok) {
-                const datax = await res.text();
-                formXD.innerHTML = datax;
-                formXD.setAttribute('data-name', 'add')
-            } else {
-                throw new Error(res.status)
-            }
-        } catch (e) {
-            console.log(e.message);
-        }
-    }
+    // async function addkamen() {
+    //     modal.style.display = "block"
+    //     formXD.innerHTML = ""
+    //     try {
+    //         const res = await fetch('restmodal.php?kamenadd=ok', {
+    //             method: 'GET'
+    //         })
+    //         if (res.ok) {
+    //             const datax = await res.text();
+    //             formXD.innerHTML = datax;
+    //             formXD.setAttribute('data-name', 'add')
+    //         } else {
+    //             throw new Error(res.status)
+    //         }
+    //     } catch (e) {
+    //         console.log(e.message);
+    //     }
+    // }
 
-    async function adddataXD() {
-        var formdataXD = new FormData()
-        formdataXD.append('kamen_namexd', formXD.elements['kamen_name'].value)
-        formdataXD.append('kamen_datestartxd', formXD.elements['kamen_datestart'].value)
-        formdataXD.append('kamen_datesendxd', formXD.elements['kamen_datesend'].value)
-        formdataXD.append('kamen_logoxd', formXD.elements['filelogo'].files[0])
-        formdataXD.append('kamen_imgxd', formXD.elements['fileimg'].files[0])
-        formdataXD.append('kamen_eraxd', formXD.elements['kamen_era'].value)
-        formdataXD.append('kamen_epxd', formXD.elements['kamen_ep'].value)
-        try {
-            const res = await fetch('../php/rest.php', {
-                method: 'POST',
-                body: formdataXD
-            })
-            if (res.ok) {
-                const datax = await res.json();
-                if (datax.message == "success") {
-                    display();
-                    modal.style.display = "none"
-                }
-                console.log(datax)
-            } else {
-                throw new Error(res.status)
-            }
-        } catch (e) {
-            console.log(e.message);
-        }
-    }
+    // async function adddataXD() {
+    //     var formdataXD = new FormData()
+    //     formdataXD.append('kamen_namexd', formXD.elements['kamen_name'].value)
+    //     formdataXD.append('kamen_datestartxd', formXD.elements['kamen_datestart'].value)
+    //     formdataXD.append('kamen_datesendxd', formXD.elements['kamen_datesend'].value)
+    //     formdataXD.append('kamen_logoxd', formXD.elements['filelogo'].files[0])
+    //     formdataXD.append('kamen_imgxd', formXD.elements['fileimg'].files[0])
+    //     formdataXD.append('kamen_eraxd', formXD.elements['kamen_era'].value)
+    //     formdataXD.append('kamen_epxd', formXD.elements['kamen_ep'].value)
+    //     try {
+    //         const res = await fetch('../php/rest.php', {
+    //             method: 'POST',
+    //             body: formdataXD
+    //         })
+    //         if (res.ok) {
+    //             const datax = await res.json();
+    //             if (datax.message == "success") {
+    //                 display();
+    //                 modal.style.display = "none"
+    //             }
+    //             console.log(datax)
+    //         } else {
+    //             throw new Error(res.status)
+    //         }
+    //     } catch (e) {
+    //         console.log(e.message);
+    //     }
+    // }
 
-    async function deletedata(id) {
-        try {
-            const res = await fetch('../php/rest.php?kamen_xd=' + id, {
-                method: 'GET'
-            })
-            if (res.ok) {
-                const datax = await res.json();
-                console.log(datax);
-                if (datax.message == "success") {
-                    display();
-                }
-            } else {
-                throw new Error(res.status)
-            }
-        } catch (e) {
-            console.log(e.message);
-        }
-    }
+    // async function deletedata(id) {
+    //     try {
+    //         const res = await fetch('../php/rest.php?kamen_xd=' + id, {
+    //             method: 'GET'
+    //         })
+    //         if (res.ok) {
+    //             const datax = await res.json();
+    //             console.log(datax);
+    //             if (datax.message == "success") {
+    //                 display();
+    //             }
+    //         } else {
+    //             throw new Error(res.status)
+    //         }
+    //     } catch (e) {
+    //         console.log(e.message);
+    //     }
+    // }
     // function generate() {
     //     let doc = new jsPDF()
 
