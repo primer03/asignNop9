@@ -16,9 +16,9 @@ if(!isset($_SESSION['admin'])){
             <li><a class="btnXD" href="reportkamen.php">Kamen Series</a></li>
             <li><a class="btnXD" href="reportera.php">Kamen Era</a></li>
             <li class="drob">
-                <a class="btnXD" href="#">ADMIN</a>
+                <a class="btnXD" href="#"><?php echo $_SESSION['admin'] ?></a>
                 <ul class="menudrob">
-                    <li><a class="menulink" href="">Logout</a></li>
+                    <li><a class="menulink" href="logout.php">Logout</a></li>
                 </ul>
             </li>
         </ul>

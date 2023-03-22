@@ -152,13 +152,13 @@
             <div class="navdataXD">
                 <ul>
                     <li id="menuiconXD" data-name="showa" class="activenav">
-                        <button data-name="showa" id="menulinkdata" class="menulinkdata" type="button">XDXD</button>
+                        <button data-name="showa" id="menulinkdata" class="menulinkdata" type="button">Showa</button>
                     </li>
                     <li id="menuiconXD" data-name="heisei">
-                        <button data-name="heisei" id="menulinkdata" class="menulinkdata" type="button">XDXD</button>
+                        <button data-name="heisei" id="menulinkdata" class="menulinkdata" type="button">Heisei</button>
                     </li>
                     <li id="menuiconXD">
-                        <button data-name="reiwa" data-name="reiwa" id="menulinkdata" class="menulinkdata" type="button">XDXD</button>
+                        <button data-name="reiwa" data-name="reiwa" id="menulinkdata" class="menulinkdata" type="button">Reiwa</button>
                     </li>
                 </ul>
             </div>
@@ -258,6 +258,28 @@
                     let imgxd = document.createElement('img')
                     imgxd.classList.add('imgiconX')
                     imgxd.src = 'img/logorider/Heisei/0' + index + '.webp'
+                    cardicon.appendChild(imgxd)
+                    let nametag = document.createElement('div')
+                    nametag.classList.add('nametag')
+                    nametag.textContent = "OK"
+                    cardicon.appendChild(nametag)
+                }
+            } else if (ex.target.dataset.name == 'reiwa') {
+                boxiconx.innerHTML = "";
+                menuiconXD.forEach(e => {
+                    if (e.getAttribute('data-name') == ex.target.dataset.name) {
+                        e.classList.add('activenav')
+                    } else {
+                        e.classList.remove('activenav')
+                    }
+                })
+                for (let index = 1; index <= 4; index++) {
+                    let cardicon = document.createElement('div')
+                    cardicon.classList.add('cardicon')
+                    boxiconx.appendChild(cardicon)
+                    let imgxd = document.createElement('img')
+                    imgxd.classList.add('imgiconX')
+                    imgxd.src = 'img/logorider/Reiwa/0' + index + '.webp'
                     cardicon.appendChild(imgxd)
                     let nametag = document.createElement('div')
                     nametag.classList.add('nametag')
