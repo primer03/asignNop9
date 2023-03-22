@@ -24,6 +24,9 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <label for="" class="labelkamen">kamenriderlogo</label>
 <input type="hidden" name="kamen_logo" value="<?php echo $row[0]['kamen_logo'] ?>">
 <input type="file" accept="image/png, image/gif, image/jpeg,image/webp" name="filelogo" id="">
+<label for="" class="labelkamen">kamenriderwallpaper</label>
+<input type="hidden" name="kamen_wallpaper" value="<?php echo $row[0]['kamen_wallpaper'] ?>">
+<input type="file" accept="image/png, image/gif, image/jpeg,image/webp" name="filewallpaper" id="">
 <label for="" class="labelkamen">kamenriderep</label>
 <input type="number" name="kamen_ep" id="" value="<?php echo $row[0]['kamen_ep'] ?>" required>
 <label for="" class="labelkamen">kamenriderera</label>
@@ -48,6 +51,8 @@ $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <input type="file" accept="image/png, image/gif, image/jpeg,image/webp" name="fileimg" id="" required>
     <label for="" class="labelkamen">kamenriderlogo</label>
     <input type="file" accept="image/png, image/gif, image/jpeg,image/webp" name="filelogo" id="" required>
+    <label for="" class="labelkamen">kamenriderwallpaper</label>
+    <input type="file" accept="image/png, image/gif, image/jpeg,image/webp" name="filewallpaper" id="" required>
     <label for="" class="labelkamen">kamenriderep</label>
     <input type="number" name="kamen_ep" id="" value="" required>
     <label for="" class="labelkamen">kamenriderera</label>

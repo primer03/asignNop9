@@ -14,7 +14,7 @@
             // $randstring = base_convert($rand,10,36);
             // $_FILES['kamen_logo']['name'] = $randstring.".".$imgpa[1];
             // echo json_encode($_FILES['kamen_logo']);
-            if(isset($_FILES['kamen_logo']) != null && isset($_FILES['kamen_img']) == null){
+            if(isset($_FILES['kamen_logo']) != null && isset($_FILES['kamen_img']) == null && isset($_FILES['kamen_wallpaper']) == null){
                 $imgpa = explode(".", $_FILES['kamen_logo']['name']);
                 $rand = rand();
                 $randstring = base_convert($rand,10,36);
@@ -22,7 +22,7 @@
                 $dir = "../img/logoseries/";
                 $fillname = $dir.basename($_FILES['kamen_logo']['name']);
                 if(move_uploaded_file($_FILES['kamen_logo']['tmp_name'], $fillname)){
-                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>basename($_FILES['kamen_logo']['name']),":kamen_img"=>$_POST['kamen_img'],":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']] ;
+                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>basename($_FILES['kamen_logo']['name']),":kamen_img"=>$_POST['kamen_img'],":kamen_wallpaper"=>$_POST['kamen_wallpaper'],":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']] ;
                     $data = $kamen->updatekamen($datarr);
                     if($data > 0){
                         echo json_encode(["status"=>1,"message"=>"success"]);
@@ -32,7 +32,7 @@
                 }else{
                     echo "NOXD";
                 }
-            }else if(isset($_FILES['kamen_logo']) == null && isset($_FILES['kamen_img']) != null){
+            }else if(isset($_FILES['kamen_logo']) == null && isset($_FILES['kamen_img']) != null && isset($_FILES['kamen_wallpaper']) == null){
                 $imgpa = explode(".", $_FILES['kamen_img']['name']);
                 $rand = rand();
                 $randstring = base_convert($rand,10,36);
@@ -40,7 +40,7 @@
                 $dir = "../img/logorider/";
                 $fillname = $dir.basename($_FILES['kamen_img']['name']);
                 if(move_uploaded_file($_FILES['kamen_img']['tmp_name'], $fillname)){
-                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>$_POST['kamen_logo'],":kamen_img"=>basename($_FILES['kamen_img']['name']),":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']] ;
+                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>$_POST['kamen_logo'],":kamen_img"=>basename($_FILES['kamen_img']['name']),":kamen_wallpaper"=>$_POST['kamen_wallpaper'],":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']] ;
                     $data = $kamen->updatekamen($datarr);
                     if($data > 0){
                         echo json_encode(["status"=>1,"message"=>"success"]);
@@ -50,9 +50,25 @@
                 }else{
                     echo "NO";
                 }
-            }else if(isset($_FILES['kamen_logo']) != null && isset($_FILES['kamen_img']) != null){
-                // echo json_encode($_FILES['kamen_logo']);
-                // echo json_encode($_FILES['kamen_img']);
+            }else if(isset($_FILES['kamen_logo']) == null && isset($_FILES['kamen_img']) == null && isset($_FILES['kamen_wallpaper']) != null){
+                $imgpa = explode(".", $_FILES['kamen_wallpaper']['name']);
+                $rand = rand();
+                $randstring = base_convert($rand,10,36);
+                $_FILES['kamen_wallpaper']['name'] = $randstring.".".$imgpa[1];
+                $dir = "../img/wallpaper/";
+                $fillname = $dir.basename($_FILES['kamen_wallpaper']['name']);
+                if(move_uploaded_file($_FILES['kamen_wallpaper']['tmp_name'], $fillname)){
+                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>$_POST['kamen_logo'],":kamen_img"=>$_POST['kamen_img'],":kamen_wallpaper"=>basename($_FILES['kamen_wallpaper']['name']),":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']] ;
+                    $data = $kamen->updatekamen($datarr);
+                    if($data > 0){
+                        echo json_encode(["status"=>1,"message"=>"success"]);
+                    }else{
+                        echo json_encode(["status"=>0,"message"=>"error"]);
+                    }
+                }else{
+                    echo "NO";
+                }
+            }else if(isset($_FILES['kamen_logo']) != null && isset($_FILES['kamen_img']) != null && isset($_FILES['kamen_wallpaper']) == null){
                 $imgpalogo = explode(".", $_FILES['kamen_logo']['name']);
                 $imgpaimg = explode(".", $_FILES['kamen_img']['name']);
                 $randlogo = rand();
@@ -66,7 +82,87 @@
                 $fillnamelogo = $dirlogo.basename($_FILES['kamen_logo']['name']);
                 $fillnameimg = $dirimg.basename($_FILES['kamen_img']['name']);
                 if(move_uploaded_file($_FILES['kamen_img']['tmp_name'], $fillnameimg) && move_uploaded_file($_FILES['kamen_logo']['tmp_name'], $fillnamelogo)){
-                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>basename($_FILES['kamen_logo']['name']),":kamen_img"=>basename($_FILES['kamen_img']['name']),":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']];
+                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>basename($_FILES['kamen_logo']['name']),":kamen_img"=>basename($_FILES['kamen_img']['name']),":kamen_wallpaper"=>$_POST['kamen_wallpaper'],":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']] ;
+                    $data = $kamen->updatekamen($datarr);
+                    if($data > 0){
+                        echo json_encode(["status"=>1,"message"=>"success"]);
+                    }else{
+                        echo json_encode(["status"=>0,"message"=>"error"]);
+                    }
+                }else{
+                    echo "NO";
+                }
+            }else if(isset($_FILES['kamen_logo']) != null && isset($_FILES['kamen_img']) == null && isset($_FILES['kamen_wallpaper']) != null){
+                $imgpalogo = explode(".", $_FILES['kamen_logo']['name']);
+                $imgpaimg = explode(".", $_FILES['kamen_wallpaper']['name']);
+                $randlogo = rand();
+                $randimg = rand();
+                $randstringlogo = base_convert($randlogo,10,36);
+                $randstringimg = base_convert($randimg,10,36);
+                $_FILES['kamen_logo']['name'] = $randstringlogo.".".$imgpalogo[1];
+                $_FILES['kamen_wallpaper']['name'] = $randstringimg.".".$imgpaimg[1];
+                $dirlogo = "../img/logoseries/";
+                $dirimg = "../img/wallpaper/";
+                $fillnamelogo = $dirlogo.basename($_FILES['kamen_logo']['name']);
+                $fillnameimg = $dirimg.basename($_FILES['kamen_wallpaper']['name']);
+                if(move_uploaded_file($_FILES['kamen_wallpaper']['tmp_name'], $fillnameimg) && move_uploaded_file($_FILES['kamen_logo']['tmp_name'], $fillnamelogo)){
+                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>basename($_FILES['kamen_logo']['name']),":kamen_img"=>$_POST['kamen_img'],":kamen_wallpaper"=>basename($_FILES['kamen_wallpaper']['name']),":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']] ;
+                    $data = $kamen->updatekamen($datarr);
+                    if($data > 0){
+                        echo json_encode(["status"=>1,"message"=>"success"]);
+                    }else{
+                        echo json_encode(["status"=>0,"message"=>"error"]);
+                    }
+                    // echo json_encode($datarr);
+                }else{
+                    echo "NO";
+                }
+            }else if(isset($_FILES['kamen_logo']) == null && isset($_FILES['kamen_img']) != null && isset($_FILES['kamen_wallpaper']) != null){
+                $imgpalogo = explode(".", $_FILES['kamen_img']['name']);
+                $imgpaimg = explode(".", $_FILES['kamen_wallpaper']['name']);
+                $randlogo = rand();
+                $randimg = rand();
+                $randstringlogo = base_convert($randlogo,10,36);
+                $randstringimg = base_convert($randimg,10,36);
+                $_FILES['kamen_img']['name'] = $randstringlogo.".".$imgpalogo[1];
+                $_FILES['kamen_wallpaper']['name'] = $randstringimg.".".$imgpaimg[1];
+                $dirlogo = "../img/logorider/";
+                $dirimg = "../img/wallpaper/";
+                $fillnamelogo = $dirlogo.basename($_FILES['kamen_img']['name']);
+                $fillnameimg = $dirimg.basename($_FILES['kamen_wallpaper']['name']);
+                if(move_uploaded_file($_FILES['kamen_wallpaper']['tmp_name'], $fillnameimg) && move_uploaded_file($_FILES['kamen_img']['tmp_name'], $fillnamelogo)){
+                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>$_POST['kamen_logo'],":kamen_img"=>basename($_FILES['kamen_img']['name']),":kamen_wallpaper"=>basename($_FILES['kamen_wallpaper']['name']),":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']] ;
+                    $data = $kamen->updatekamen($datarr);
+                    if($data > 0){
+                        echo json_encode(["status"=>1,"message"=>"success"]);
+                    }else{
+                        echo json_encode(["status"=>0,"message"=>"error"]);
+                    }
+                    // echo json_encode($datarr);
+                }else{
+                    echo "NO";
+                }
+            }else if(isset($_FILES['kamen_logo']) != null && isset($_FILES['kamen_img']) != null && isset($_FILES['kamen_wallpaper']) != null){
+                $imgpalogo = explode(".", $_FILES['kamen_logo']['name']);
+                $imgpaimg = explode(".", $_FILES['kamen_img']['name']);
+                $imgpawall = explode(".", $_FILES['kamen_wallpaper']['name']);
+                $randlogo = rand();
+                $randimg = rand();
+                $randwall = rand();
+                $randstringlogo = base_convert($randlogo,10,36);
+                $randstringimg = base_convert($randimg,10,36);
+                $randstringwall = base_convert($randwall,10,36);
+                $_FILES['kamen_logo']['name'] = $randstringlogo.".".$imgpalogo[1];
+                $_FILES['kamen_img']['name'] = $randstringimg.".".$imgpaimg[1];
+                $_FILES['kamen_wallpaper']['name'] = $randstringwall.".".$imgpawall[1];
+                $dirlogo = "../img/logoseries/";
+                $dirimg = "../img/logorider/";
+                $dirwall = "../img/wallpaper/";
+                $fillnamelogo = $dirlogo.basename($_FILES['kamen_logo']['name']);
+                $fillnameimg = $dirimg.basename($_FILES['kamen_img']['name']);
+                $fillnamewall = $dirwall.basename($_FILES['kamen_wallpaper']['name']);
+                if(move_uploaded_file($_FILES['kamen_img']['tmp_name'], $fillnameimg) && move_uploaded_file($_FILES['kamen_logo']['tmp_name'], $fillnamelogo) && move_uploaded_file($_FILES['kamen_wallpaper']['tmp_name'], $fillnamewall)){
+                    $datarr = [":kamen_id"=>$_POST['kamen_id'],":kamen_name"=>$_POST['kamen_name'],":kamen_datestart"=>$_POST['kamen_datestart'],":kamen_datesend"=>$_POST['kamen_datesend'],":kamen_logo"=>basename($_FILES['kamen_logo']['name']),":kamen_img"=>basename($_FILES['kamen_img']['name']),":kamen_wallpaper"=>basename($_FILES['kamen_wallpaper']['name']),":kamen_era"=>$_POST['kamen_era'],":kamen_ep"=>$_POST['kamen_ep']];
                     $data = $kamen->updatekamen($datarr);
                     if($data > 0){
                         echo json_encode(["status"=>1,"message"=>"success"]);
@@ -88,18 +184,24 @@
        }else if(isset($_POST['kamen_namexd'])){
             $imgpalogo = explode(".", $_FILES['kamen_logoxd']['name']);
             $imgpaimg = explode(".", $_FILES['kamen_imgxd']['name']);
+            $imgpawall = explode(".", $_FILES['kamen_wallpaperxd']['name']);
             $randlogo = rand();
             $randimg = rand();
+            $randwall = rand();
             $randstringlogo = base_convert($randlogo,10,36);
             $randstringimg = base_convert($randimg,10,36);
+            $randstringwall = base_convert($randwall,10,36);
             $_FILES['kamen_logoxd']['name'] = $randstringlogo.".".$imgpalogo[1];
             $_FILES['kamen_imgxd']['name'] = $randstringimg.".".$imgpaimg[1];
+            $_FILES['kamen_wallpaperxd']['name'] = $randstringwall.".".$imgpawall[1];
             $dirlogo = "../img/logoseries/";
             $dirimg = "../img/logorider/";
+            $dirwall = "../img/wallpaper/";
             $fillnamelogo = $dirlogo.basename($_FILES['kamen_logoxd']['name']);
             $fillnameimg = $dirimg.basename($_FILES['kamen_imgxd']['name']);
-            if(move_uploaded_file($_FILES['kamen_imgxd']['tmp_name'], $fillnameimg) && move_uploaded_file($_FILES['kamen_logoxd']['tmp_name'], $fillnamelogo)){
-                $datarrX = [":kamen_name"=>$_POST['kamen_namexd'],":kamen_datestart"=>$_POST['kamen_datestartxd'],":kamen_datesend"=>$_POST['kamen_datesendxd'],":kamen_logo"=>basename($_FILES['kamen_logoxd']['name']),":kamen_img"=>basename($_FILES['kamen_imgxd']['name']),":kamen_era"=>$_POST['kamen_eraxd'],":kamen_ep"=>$_POST['kamen_epxd']] ;
+            $fillnamewall = $dirwall.basename($_FILES['kamen_wallpaperxd']['name']);
+            if(move_uploaded_file($_FILES['kamen_imgxd']['tmp_name'], $fillnameimg) && move_uploaded_file($_FILES['kamen_logoxd']['tmp_name'], $fillnamelogo) && move_uploaded_file($_FILES['kamen_wallpaperxd']['tmp_name'], $fillnamewall)){
+                $datarrX = [":kamen_name"=>$_POST['kamen_namexd'],":kamen_datestart"=>$_POST['kamen_datestartxd'],":kamen_datesend"=>$_POST['kamen_datesendxd'],":kamen_logo"=>basename($_FILES['kamen_logoxd']['name']),":kamen_img"=>basename($_FILES['kamen_imgxd']['name']),":kamen_wallpaper"=>basename($_FILES['kamen_wallpaperxd']['name']),":kamen_era"=>$_POST['kamen_eraxd'],":kamen_ep"=>$_POST['kamen_epxd']] ;
                 $dataX = $kamen->addkamen($datarrX);
                 if($dataX > 0){
                     echo json_encode(["status"=>1,"message"=>"success"]);

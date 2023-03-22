@@ -67,9 +67,9 @@
                 var dsx = datax.filter((e) => {
                     return e.kamen_era != 'Heisei'
                 })
-                console.log(dsx);
-                console.log(Object.keys(datax[0]));
-                console.log(Object.values(datax[0]));
+                // console.log(dsx);
+                // console.log(Object.keys(datax[0]));
+                // console.log(Object.values(datax[0]));
                 let keyxd = Object.keys(datax[0]);
                 theaxd = keyxd
                 thd.innerHTML = "";
@@ -99,6 +99,10 @@
                             var td = document.createElement('td')
                             td.innerHTML = ' <img width="50" height="50" src="../img/logoseries/' + datax[key][key1] + '" alt="">'
                             tr.appendChild(td)
+                        } else if (key1 == 'kamen_wallpaper') {
+                            var td = document.createElement('td')
+                            td.innerHTML = ' <img width="50" height="50" src="../img/wallpaper/' + datax[key][key1] + '" alt="">'
+                            tr.appendChild(td)
                         } else {
                             var td = document.createElement('td')
                             td.innerHTML = datax[key][key1]
@@ -112,7 +116,7 @@
                     td.innerHTML = '<button class="btndelete" onclick="deletedata(' + datax[key].kamen_id + ')" type="button">ลบ</button>'
                     tr.appendChild(td)
                 }
-                console.log(arrdata);
+                // console.log(arrdata);
             } else {
                 throw new Error(resx.status)
             }
@@ -169,6 +173,11 @@
         } else {
             formdataXD.append('kamen_img', formXD.elements['fileimg'].files[0])
         }
+        if (formXD.elements['filewallpaper'].files[0] == undefined) {
+            formdataXD.append('kamen_wallpaper', formXD.elements['kamen_wallpaper'].value)
+        } else {
+            formdataXD.append('kamen_wallpaper', formXD.elements['filewallpaper'].files[0])
+        }
         formdataXD.append('kamen_era', formXD.elements['kamen_era'].value)
         formdataXD.append('kamen_ep', formXD.elements['kamen_ep'].value)
         try {
@@ -218,6 +227,7 @@
         formdataXD.append('kamen_datesendxd', formXD.elements['kamen_datesend'].value)
         formdataXD.append('kamen_logoxd', formXD.elements['filelogo'].files[0])
         formdataXD.append('kamen_imgxd', formXD.elements['fileimg'].files[0])
+        formdataXD.append('kamen_wallpaperxd',formXD.elements['filewallpaper'].files[0])
         formdataXD.append('kamen_eraxd', formXD.elements['kamen_era'].value)
         formdataXD.append('kamen_epxd', formXD.elements['kamen_ep'].value)
         try {
@@ -226,11 +236,11 @@
                 body: formdataXD
             })
             if (res.ok) {
-                const datax = await res.json();
-                if (datax.message == "success") {
-                    display();
-                    modal.style.display = "none"
-                }
+                const datax = await res.text();
+                // if (datax.message == "success") {
+                //     display();
+                //     modal.style.display = "none"
+                // }
                 console.log(datax)
             } else {
                 throw new Error(res.status)

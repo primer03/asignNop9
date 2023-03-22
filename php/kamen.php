@@ -11,7 +11,7 @@
         }
 
         public function getdataseries(){
-            $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,kamen_logo,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id;');
+            $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,kamen_logo,kamen_wallpaper,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id;');
             $data = $result->fetchAll(PDO::FETCH_ASSOC);
             $row = $result->rowCount();
             if($row > 0){
@@ -52,7 +52,7 @@
         }
 
         public function updatekamen($datarray){
-            $sql = "UPDATE tbl_kamenrider SET kamen_name = :kamen_name,kamen_datestart = :kamen_datestart,kamen_datesend = :kamen_datesend,kamen_logo = :kamen_logo,kamen_img = :kamen_img,kamen_era = :kamen_era,kamen_ep = :kamen_ep WHERE kamen_id = :kamen_id";
+            $sql = "UPDATE tbl_kamenrider SET kamen_name = :kamen_name,kamen_datestart = :kamen_datestart,kamen_datesend = :kamen_datesend,kamen_logo = :kamen_logo,kamen_img = :kamen_img,kamen_wallpaper = :kamen_wallpaper,kamen_era = :kamen_era,kamen_ep = :kamen_ep WHERE kamen_id = :kamen_id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($datarray);
             return 1;
@@ -83,7 +83,7 @@
 
         public function addkamen($datarray){
             if($this->checkname($datarray[':kamen_name'])){
-                $sql = "INSERT INTO tbl_kamenrider (kamen_name,kamen_datestart,kamen_datesend,kamen_logo,kamen_img,kamen_era,kamen_ep) VALUE (:kamen_name,:kamen_datestart,:kamen_datesend,:kamen_logo,:kamen_img,:kamen_era,:kamen_ep)";
+                $sql = "INSERT INTO tbl_kamenrider (kamen_name,kamen_datestart,kamen_datesend,kamen_logo,kamen_img,kamen_wallpaper,kamen_era,kamen_ep) VALUE (:kamen_name,:kamen_datestart,:kamen_datesend,:kamen_logo,:kamen_img,:kamen_wallpaper,:kamen_era,:kamen_ep)";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->execute($datarray);
                 return 1;
