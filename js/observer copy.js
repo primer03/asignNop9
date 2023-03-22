@@ -1,6 +1,5 @@
 const targetElement = document.querySelectorAll('.target-element');
 const startx = document.querySelectorAll('.startx');
-// const erabox = document.querySelectorAll('.erabox');
 const nameeraX = document.querySelectorAll('.nameeraX');
 var bocfera = document.querySelector('.bocfera')
 var imgfirstX = document.querySelectorAll('.imgfirstX')
@@ -95,11 +94,7 @@ targetElement.forEach(e => {
     observer.observe(e);
 })
 
-erabox.forEach(era => {
 
-    // oberabox.observe(era)
-    console.log(era);
-})
 
 startx.forEach(e => {
     observer1.observe(e);
@@ -113,5 +108,4 @@ imgfirstX.forEach(e => {
     rorateX.observe(e);
 })
 
-opcity.observe(document.querySelector('.contentstart'))
 opcitynamefi.observe(bocfera)

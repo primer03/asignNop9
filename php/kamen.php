@@ -116,6 +116,25 @@
                 return 0;
             }
         }
+
+        public function getdataindex(){
+            $arrdata = [];
+            $arrdata["datakamen"] = $this->getkamendata();
+            $arrdata["dataera"] = $this->geteradata();
+            return $arrdata;
+        }
+
+        private function getkamendata(){
+            $result = $this->pdo->query('SELECT kamen_id,kamen_name,kamen_datestart,kamen_datesend,kamen_img,kamen_logo,kamen_wallpaper,era_name,kamen_ep FROM tbl_kamenrider km,tbl_era era WHERE km.kamen_era = era.era_id;');
+            $data = $result->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        }
+
+        private function geteradata(){
+            $result = $this->pdo->query('SELECT *FROM tbl_era');
+            $data = $result->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        }
         
     }
 ?>

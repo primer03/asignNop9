@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/indext5.css">
+    <link rel="stylesheet" href="css/indext6.css">
     <title>Document</title>
 </head>
 
 <body>
     <nav>
         <div class="nav-start">
-            <img src="img/logo.png" alt="">
+            <a href="index.html"><img src="img/logo.png" alt=""></a>
         </div>
         <div class="nav-end">
             <ul id="menuXDX">
@@ -33,39 +33,15 @@
 
         <div class="contentcontainer">
             <div class="boxcontext">
-                <div class="contentstart">
-                    <span class="titelast">The Last Kamen Rider: Kamen Rider Gates</span>
+                <div class="contentstart" id="contentstartXD">
+                    <!-- <span class="titelast">The Last Kamen Rider: Kamen Rider Gates</span>
                     <span class="lastlogo"><img src="img/Kamen_Rider_Geats_Logo.png" alt=""></span>
-                    <img class="imglast" src="img/lastrider.jpg" alt="">
+                    <img class="imglast" src="img/lastrider.jpg" alt=""> -->
                 </div>
-                <div class="contentend">
-                    <div class="erabox">
-                        <div class="imgbox">
-                            <img src="img/showa.png" alt="">
-                        </div>
-                        <div class="eraname">
-                            <span>Showa-era Riders are Kamen Riders from the Shōwa Period of Japan, which took place from 1926 to 1989.</span>
-                        </div>
-                    </div>
-                    <div class="erabox">
-                        <div class="imgbox">
-                            <img src="img/d9hmn27-fb4745bc-6d72-443c-a531-65a735e88698.png" alt="">
-                        </div>
-                        <div class="eraname">
-                            <span>Heisei-era from January 8, 1989, the first day after the death of the previous Emperor, Hirohito, father of Akihito, to his abdication on April 30th, 2019, announced years earlier, in August 2016</span>
-                        </div>
-                    </div>
-                    <div class="erabox">
-                        <div class="imgbox">
-                            <img src="img/ddj41qd-ef13e63e-5d7a-4028-a12c-479efb22a279.png" alt="">
-                        </div>
-                        <div class="eraname">
-                            <span> Reiwa-era the current period in Japanese history, coming after the Heisei period on May 1, 2019</span>
-                        </div>
-                    </div>
+                <div class="contentend" id="contentendXD">
                 </div>
             </div>
-            <div class="boxheadf">
+            <!-- <div class="boxheadf">
                 <p class="bocfera" style="text-align: center;">Top 5 Kamen Rider Vote</p>
             </div>
             <div class="hboxfirst">
@@ -111,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- <div class="boxlogo">
                 <div class="logotitel">
@@ -169,25 +145,8 @@
 
         </div>
     </div>
-    <!-- <div class="databox" style="height: 100vh;">
-        <div class="datakamenbox">
-            <div class="navdata">
-                <ul>
-                    <li class="activenav">
-                        <button class="menulinkdata" type="button">XDXD</button>
-                    </li>
-                    <li>
-                        <button class="menulinkdata" type="button">XDXD</button>
-                    </li>
-                    <li>
-                        <button class="menulinkdata" type="button">XDXD</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
 </body>
-<script src="js/observer.js"></script>
+<script src="js/observer copy.js"></script>
 <script>
     var boxlogoimg = document.querySelector('.boxlogoimg')
     var showabox = document.querySelector('.showabox')
@@ -199,22 +158,13 @@
     var menulinkdata = document.querySelectorAll('#menulinkdata')
     var menuiconXD = document.querySelectorAll('#menuiconXD')
     var slidex = null;
+    var datashowa = null;
+    var dataheisei = null;
+    var datareiwa = null;
+    var dataera = null;
+    var erabox = document.querySelectorAll('.erabox');
+    var datalastkamen = null;
 
-    var createicon = () => {
-        for (let index = 1; index <= 9; index++) {
-            let cardicon = document.createElement('div')
-            cardicon.classList.add('cardicon')
-            boxiconx.appendChild(cardicon)
-            let imgxd = document.createElement('img')
-            imgxd.classList.add('imgiconX')
-            imgxd.src = 'img/logorider/showa/0' + index + '.png'
-            cardicon.appendChild(imgxd)
-            let nametag = document.createElement('div')
-            nametag.classList.add('nametag')
-            nametag.textContent = "OK"
-            cardicon.appendChild(nametag)
-        }
-    }
 
     menulinkdata.forEach(e => {
 
@@ -229,17 +179,21 @@
                         e.classList.remove('activenav')
                     }
                 })
-                for (let index = 1; index <= 9; index++) {
+                console.log(datashowa);
+                for (const key in datashowa) {
                     let cardicon = document.createElement('div')
                     cardicon.classList.add('cardicon')
                     boxiconx.appendChild(cardicon)
+                    let divas = document.createElement('a')
+                    divas.href = "showkamen.html"
+                    cardicon.appendChild(divas)
                     let imgxd = document.createElement('img')
                     imgxd.classList.add('imgiconX')
-                    imgxd.src = 'img/logorider/showa/0' + index + '.png'
-                    cardicon.appendChild(imgxd)
+                    imgxd.src = 'img/logorider/' + datashowa[key].kamen_img
+                    divas.appendChild(imgxd)
                     let nametag = document.createElement('div')
                     nametag.classList.add('nametag')
-                    nametag.textContent = "OK"
+                    nametag.textContent = datashowa[key].kamen_name
                     cardicon.appendChild(nametag)
                 }
             } else if (ex.target.dataset.name == 'heisei') {
@@ -251,19 +205,24 @@
                         e.classList.remove('activenav')
                     }
                 })
-                for (let index = 1; index <= 20; index++) {
+
+                for (const key in dataheisei) {
                     let cardicon = document.createElement('div')
                     cardicon.classList.add('cardicon')
                     boxiconx.appendChild(cardicon)
+                    let divas = document.createElement('a')
+                    divas.href = "showkamen.html"
+                    cardicon.appendChild(divas)
                     let imgxd = document.createElement('img')
                     imgxd.classList.add('imgiconX')
-                    imgxd.src = 'img/logorider/Heisei/0' + index + '.webp'
-                    cardicon.appendChild(imgxd)
+                    imgxd.src = 'img/logorider/' + dataheisei[key].kamen_img
+                    divas.appendChild(imgxd)
                     let nametag = document.createElement('div')
                     nametag.classList.add('nametag')
-                    nametag.textContent = "OK"
+                    nametag.textContent = dataheisei[key].kamen_name
                     cardicon.appendChild(nametag)
                 }
+
             } else if (ex.target.dataset.name == 'reiwa') {
                 boxiconx.innerHTML = "";
                 menuiconXD.forEach(e => {
@@ -273,61 +232,25 @@
                         e.classList.remove('activenav')
                     }
                 })
-                for (let index = 1; index <= 4; index++) {
+                for (const key in datareiwa) {
                     let cardicon = document.createElement('div')
                     cardicon.classList.add('cardicon')
                     boxiconx.appendChild(cardicon)
+                    let divas = document.createElement('a')
+                    divas.href = "showkamen.html"
+                    cardicon.appendChild(divas)
                     let imgxd = document.createElement('img')
                     imgxd.classList.add('imgiconX')
-                    imgxd.src = 'img/logorider/Reiwa/0' + index + '.webp'
-                    cardicon.appendChild(imgxd)
+                    imgxd.src = 'img/logorider/' + datareiwa[key].kamen_img
+                    divas.appendChild(imgxd)
                     let nametag = document.createElement('div')
                     nametag.classList.add('nametag')
-                    nametag.textContent = "OK"
+                    nametag.textContent = datareiwa[key].kamen_name
                     cardicon.appendChild(nametag)
                 }
             }
         })
     })
-
-
-
-    // for (let index = 2; index <= 9; index++) {
-    //     showabox.innerHTML += '<div class="boximgtitle">' +
-    //         '<div class="boxtimg">' +
-    //         '<img src="img/logorider/showa/0' + (index) + '.png" alt="">' +
-    //         '</div>' +
-    //         '<span>Kamen Rider</span>' +
-    //         '</div>'
-    // }
-    // for (let i = 1; i <= 20; i++) {
-    //     heisebox.innerHTML += '<div class="boximgtitle">' +
-    //         '<div class="boxtimg">' +
-    //         '<img src="img/logorider/Heisei/0' + (i) + '.webp" alt="">' +
-    //         '</div>' +
-    //         '<span>Kamen Rider</span>' +
-    //         '</div>'
-    // }
-
-    // setInterval(() => {
-    //     var maxScrollLeft = showabox.scrollWidth - showabox.clientWidth
-    //     if (Math.floor(showabox.scrollLeft) < maxScrollLeft) {
-    //         showabox.scrollLeft += 220
-    //     } else {
-    //         showabox.scrollLeft = 0
-    //     }
-    //     // console.log(boxlogoimg.scrollLeft);
-    //     // console.log(maxScrollLeft);
-    // }, 1500)
-
-    // setInterval(() => {
-    //     var maxScrollLefts = heisebox.scrollWidth - heisebox.clientWidth
-    //     if (Math.floor(heisebox.scrollLeft) < maxScrollLefts) {
-    //         heisebox.scrollLeft += 210
-    //     } else {
-    //         heisebox.scrollLeft = 0
-    //     }
-    // }, 2500)
 
     imgfirstX.forEach(e => {
         e.addEventListener('mouseover', ex => {
@@ -368,7 +291,82 @@
     }
 
     window.onload = async() => {
-        createicon();
+        getcookXD();
+        getdataindex()
+    }
+
+    async function getdataindex() {
+        try {
+            const resx = await fetch('php/rest.php?dataindex=OK', {
+                method: 'GET'
+            })
+            if (resx.ok) {
+                const datax = await resx.json();
+                var datakamecX = datax.datakamen;
+                dataera = datax.dataera;
+                datashowa = datakamecX.filter((e) => {
+                    return e.era_name == "Showa"
+                })
+                dataheisei = datakamecX.filter((e) => {
+                    return e.era_name == "Heisei"
+                })
+                datareiwa = datakamecX.filter((e) => {
+                    return e.era_name == "Reiwa"
+                })
+                console.log(datax);
+                datalastkamen = datax.datakamen[datax.datakamen.length - 1];
+                // console.log(datalastkamen);
+                createicon();
+            } else {
+                throw new Error(resx.status)
+            }
+        } catch (ex) {
+            console.log(ex.message);
+        }
+    }
+
+    function createicon() {
+        console.log(datashowa[0].kamen_id);
+        for (const key in datashowa) {
+            let cardicon = document.createElement('div')
+            cardicon.classList.add('cardicon')
+            boxiconx.appendChild(cardicon)
+            let divas = document.createElement('a')
+            divas.href = "showkamen.html"
+            cardicon.appendChild(divas)
+            let imgxd = document.createElement('img')
+            imgxd.classList.add('imgiconX')
+            imgxd.src = 'img/logorider/' + datashowa[key].kamen_img
+            divas.appendChild(imgxd)
+            let nametag = document.createElement('div')
+            nametag.classList.add('nametag')
+            nametag.textContent = datashowa[key].kamen_name
+            cardicon.appendChild(nametag)
+        }
+        for (const key in dataera) {
+            document.getElementById('contentendXD').innerHTML += '<div class="erabox">' +
+                '<div class="imgbox">' +
+                '  <img src="img/logoera/' + dataera[key].era_img + '" alt="">' +
+                '  </div>' +
+                ' <div class="eraname">' +
+                ' <span>' + dataera[key].era_description +
+                '</span>' +
+                ' </div>' +
+                '</div>'
+        }
+        erabox = document.querySelectorAll('.erabox');
+        console.log(erabox);
+        erabox.forEach(era => {
+            oberabox.observe(era)
+        })
+        document.getElementById('contentstartXD').innerHTML = '<span class="titelast">The Last Kamen Rider: ' + datalastkamen.kamen_name + '</span>' +
+            '<span class="lastlogo"><img src="img/logoseries/' + datalastkamen.kamen_logo + '" alt=""></span>' +
+            '<img class="imglast" src="img/wallpaper/' + datalastkamen.kamen_wallpaper + '" alt="">'
+        opcity.observe(document.querySelector('.contentstart'))
+    }
+
+
+    async function getcookXD() {
         Checkcook("username")
         console.log(cookbool);
         if (cookbool === true) {
@@ -401,5 +399,6 @@
         }
     }
 </script>
+
 
 </html>

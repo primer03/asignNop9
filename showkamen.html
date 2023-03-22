@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/kamen2.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-start">
+            <a href="index.html"><img src="img/logo.png" alt=""></a>
+        </div>
+        <div class="nav-end">
+            <ul id="menuXDX">
+                <li><a class="btnXD" target="_blank" href="dt.html">Document</a></li>
+                <li class="drob">
+                    <a class="btnXD" href="register.html">Signup</a>
+                    <!-- <ul class="menudrob">
+                        <li><a class="menulink" href="">1</a></li>
+                        <li><a class="menulink" href="">1</a></li>
+                        <li><a class="menulink" href="">1</a></li>
+                    </ul> -->
+                </li>
+                <li><a class="btnXD" href="cookie.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="modal" id="modal">
+        <div class="cardmodal">
+            <div class="bodymodal" id="bodymodal">
+                <!-- <div class="modalhead">
+                    <span style="font-size: 30px;" id="kamenXDname">Kamen Rider Stronger</span>
+                    <span id="close">&times;</span>
+                </div>
+                <div class="modalflex">
+                    <div class="fleximg"><img src="img\logoseries\6iy1aa.webp" alt=""></div>
+                    <div class="flexdata">
+                        <p>Kamen Rider Name: </p>
+                        <p>Kamen Rider Day start: </p>
+                        <p>Kamen Rider Day end: </p>
+                        <p>Kamen Rider ep: </p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <input type="text" name="" id="serchdata" placeholder="search">
+    <div class="cardgrid" id="cardgrid">
+
+    </div>
+</body>
+<script>
+    var datakamen = null;
+    var serchdata = document.getElementById('serchdata')
+
+
+    var modal = document.getElementById('modal')
+
+
+    // btn.onclick = () => {
+    //     modal.style.display = "block"
+    // }
+    window.onkeyup = function(ev) {
+        if (ev.keyCode == 27) {
+            modal.style.display = "none"
+        }
+    }
+
+    function Checkcook(cookname) {
+        var coookie = document.cookie.split(';')
+        for (const key in coookie) {
+            var cookies = coookie[key].trim();
+            if (cookies.indexOf(cookname) === 0) {
+                cookbool = true
+                break
+            } else {
+                cookbool = false
+            }
+        }
+    }
+
+    function getcook(cookname) {
+        var coookie = document.cookie.split(';')
+        for (const key in coookie) {
+            var cookies = coookie[key].trim();
+            if (cookies.indexOf(cookname) === 0) {
+                return cookies.substring(cookname.length + 1, cookies.length);
+            }
+        }
+        return null
+    }
+
+    window.onload = async() => {
+        getcookXD();
+        getdataindex();
+    }
+
+    serchdata.onkeyup = (e) => {
+        var re = new RegExp(e.target.value, 'i')
+        if (e.target.value != "") {
+            document.getElementById('cardgrid').innerHTML = ""
+            for (const key in datakamen) {
+                if (re.test(datakamen[key].kamen_name)) {
+                    console.log(datakamen[key].kamen_name);
+                    document.getElementById('cardgrid').innerHTML += '<div class="cardcontent">' +
+                        '<img onclick="showmodal(' + (datakamen[key].kamen_id) + ')" class="imgicon" src="img/logorider/' + (datakamen[key].kamen_img) + '" alt="">' +
+                        '<p class="kaname">' + (datakamen[key].kamen_name) + '</p>' +
+                        '</div>'
+                }
+            }
+        } else {
+            document.getElementById('cardgrid').innerHTML = ""
+            for (const key in datakamen) {
+                document.getElementById('cardgrid').innerHTML += '<div class="cardcontent">' +
+                    '<img onclick="showmodal(' + (datakamen[key].kamen_id) + ')" class="imgicon" src="img/logorider/' + (datakamen[key].kamen_img) + '" alt="">' +
+                    '<p class="kaname">' + (datakamen[key].kamen_name) + '</p>' +
+                    '</div>'
+            }
+        }
+    }
+
+
+    function showmodal(id) {
+        modal.style.display = "block"
+        for (const key in datakamen) {
+            if (datakamen[key].kamen_id == id) {
+                document.getElementById('bodymodal').innerHTML = '<div class="modalhead">' +
+                    '  <span style="font-size: 30px;" id="kamenXDname">' + (datakamen[key].kamen_name) + '</span>' +
+                    ' <span id="close">&times;</span>' +
+                    '    </div>' +
+                    ' <div class="modalflex">' +
+                    '<div class="fleximg"><img src="img/logoseries/' + (datakamen[key].kamen_logo) + '" alt=""></div>' +
+                    '  <div class="flexdata">' +
+                    ' <p>Kamen Rider Name: ' + (datakamen[key].kamen_name) + '</p>' +
+                    '<p>Kamen Rider Day start: ' + (datakamen[key].kamen_datestart) + '</p>' +
+                    ' <p>Kamen Rider Day end: ' + (datakamen[key].kamen_datesend) + '</p>' +
+                    '  <p>Kamen Rider ep: ' + (datakamen[key].kamen_ep) + '</p>' +
+                    '  </div>' +
+                    '</div>'
+                break
+            }
+        }
+
+
+        var clo = document.querySelector('#close')
+        clo.onclick = () => {
+            modal.style.display = "none"
+        }
+    }
+
+    async function getdataindex() {
+        try {
+            const resx = await fetch('php/rest.php?dataindex=OK', {
+                method: 'GET'
+            })
+            if (resx.ok) {
+                const datax = await resx.json();
+                datakamen = datax.datakamen;
+                console.log(datax);
+                // console.log(datakamen);
+                // console.log(datalastkamen);
+                createimg()
+            } else {
+                throw new Error(resx.status)
+            }
+        } catch (ex) {
+            console.log(ex.message);
+        }
+    }
+
+    function createimg() {
+        // console.log(datakamen);
+        for (const key in datakamen) {
+            document.getElementById('cardgrid').innerHTML += '<div class="cardcontent">' +
+                '<img onclick="showmodal(' + (datakamen[key].kamen_id) + ')" class="imgicon" src="img/logorider/' + (datakamen[key].kamen_img) + '" alt="">' +
+                '<p class="kaname">' + (datakamen[key].kamen_name) + '</p>' +
+                '</div>'
+                // console.log(datakamen[key].kamen_logo);
+        }
+    }
+
+    async function getcookXD() {
+        Checkcook("username")
+        console.log(cookbool);
+        if (cookbool === true) {
+            try {
+                const resx = await fetch('php/rest.php?user=' + getcook("username"), {
+                    method: 'GET'
+                })
+                if (resx.ok) {
+                    const datax = await resx.json();
+                    console.log(datax);
+                    menuXDX.innerHTML = '<li><a class="btnXD" target="_blank" href="dt.html">Document</a></li>' +
+                        ' <li class="drob">' +
+                        '  <a class="btnXD" href="#">' + (datax[0].u_username) + '</a>' +
+                        '  <ul class="menudrob">' +
+                        '<li><a class="menulink" href="php/logout.php">logout</a></li>' +
+                        ' </ul>' +
+                        ' </li>'
+                } else {
+                    throw new Error(resx.status)
+                }
+            } catch (ex) {
+                console.log(ex.message);
+            }
+        } else {
+            menuXDX.innerHTML = '<li><a class="btnXD" target="_blank" href="dt.html">Document</a></li>' +
+                ' <li class="drob">' +
+                '  <a class="btnXD" href="register.html">Signup</a>' +
+                ' </li>' +
+                '<li><a class="btnXD" href="cookie.html">Login</a></li>'
+        }
+    }
+</script>
+
+</html>

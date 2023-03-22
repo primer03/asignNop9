@@ -305,6 +305,9 @@
             }else{
                 echo json_encode(["status"=>0,"message"=>"error"]);
             }
+        }else if(isset($_GET['dataindex'])){
+            $datain = $kamen->getdataindex();
+            echo json_encode($datain);
         }
     }
 
